@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   UserInterface.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 20:24:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/28 14:53:54 by mdias-ma         ###   ########.fr       */
+/*   Created: 2023/06/28 09:49:32 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/06/28 10:08:07 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+#include "UserInterface.hpp"
 
-# define CAPACITY 8
-
-# include "Contact.hpp"
-# include "UserInterface.hpp"
-
-class PhoneBook
+void	UserInterface::showMessage(const std::string& message)
 {
-public:
-	PhoneBook();
-	void	addContact();
-	void	searchContact();
-	void	exit();
+	std::cout << message << std::endl;
+}
 
-private:
-	size_t			contactIndex;
-	Contact			contacts[CAPACITY];
-	Contact			validationContact;
-	UserInterface	ui;
-};
-
-#endif // !PHONEBOOK_HPP
+std::string	UserInterface::getUserInput(const std::string& prompt)
+{
+	std::string input;
+	std::cout << prompt;
+	std::getline(std::cin, input);
+	return input;
+}

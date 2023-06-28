@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   UserInterface.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 20:24:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/28 14:53:54 by mdias-ma         ###   ########.fr       */
+/*   Created: 2023/06/28 09:49:27 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/06/28 09:49:58 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+#ifndef USERINTERFACE_HPP
+# define USERINTERFACE_HPP
 
-# define CAPACITY 8
+#include <string>
+#include <iostream>
 
-# include "Contact.hpp"
-# include "UserInterface.hpp"
-
-class PhoneBook
+class UserInterface
 {
 public:
-	PhoneBook();
-	void	addContact();
-	void	searchContact();
-	void	exit();
-
-private:
-	size_t			contactIndex;
-	Contact			contacts[CAPACITY];
-	Contact			validationContact;
-	UserInterface	ui;
+	void		showMessage(const std::string& message);
+	std::string	getUserInput(const std::string& prompt);
 };
 
-#endif // !PHONEBOOK_HPP
+#endif // !USERINTERFACE_HPP
