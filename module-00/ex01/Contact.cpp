@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:12:23 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/28 15:19:02 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:32:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 const std::string&	Contact::getFirstName(void)
 {
-	return firstName;
+	return (firstName);
 }
 
 const std::string&	Contact::getLastName(void)
 {
-	return lastName;
+	return (lastName);
 }
 
 const std::string&	Contact::getNickName(void)
 {
-	return nickName;
+	return (nickName);
 }
 
 const std::string&	Contact::getPhoneNumber(void)
 {
-	return phoneNumber;
+	return (phoneNumber);
 }
 
 const std::string&	Contact::getDarkestSecret(void)
 {
-	return darkestSecret;
+	return (darkestSecret);
 }
 
 void	Contact::setFirstName(const std::string& firstName)
@@ -72,10 +72,17 @@ void	Contact::setDarkestSecret(const std::string& darkestSecret)
 
 bool	Contact::validateName(const std::string& name)
 {
-	size_t	length = name.length();
+	if (!name.length() || !isAlphabetic(name))
+		return (false);
+	return (true);
+}
+
+bool	Contact::isAlphabetic(const std::string& str)
+{
+	size_t	length = str.length();
 
 	for (size_t i = 0; i < length; i++) {
-		if (!std::isalpha(name[i]))
+		if (!std::isalpha(str[i]))
 			return (false);
 	}
 	return (true);
@@ -83,10 +90,17 @@ bool	Contact::validateName(const std::string& name)
 
 bool	Contact::validateNumber(const std::string& number)
 {
-	size_t	length = number.length();
+	if (!number.length() || !isNumeric(number))
+		return (false);
+	return (true);
+}
+
+bool	Contact::isNumeric(const std::string& str)
+{
+	size_t	length = str.length();
 
 	for (size_t i = 0; i < length; i++) {
-		if (!std::isdigit(number[i]))
+		if (!std::isdigit(str[i]))
 			return (false);
 	}
 	return (true);

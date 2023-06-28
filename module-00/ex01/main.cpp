@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:31:09 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/28 13:22:50 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:29:46 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	PhoneBook		phonebook;
+	PhoneBook	phonebook;
 
 	phonebook.addContact();
 	return (0);

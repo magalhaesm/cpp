@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:09:16 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/28 15:18:41 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:23:53 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ private:
 	std::string	darkestSecret;
 	bool	validateName(const std::string& name);
 	bool	validateNumber(const std::string& number);
+	bool	isAlphabetic(const std::string& str);
+	bool	isNumeric(const std::string& str);
 };
 
 #endif // !CONTACT_HPP
