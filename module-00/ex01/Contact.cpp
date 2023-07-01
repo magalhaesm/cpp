@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:12:23 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/28 17:32:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:30:31 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,71 +37,27 @@ const std::string&	Contact::getDarkestSecret(void)
 	return (darkestSecret);
 }
 
-void	Contact::setFirstName(const std::string& firstName)
+void	Contact::setFirstName(const std::string& name)
 {
-	if (!validateName(firstName))
-		throw std::runtime_error("Invalid first name.");
-	this->firstName = firstName;
+	firstName = name;
 }
 
-void	Contact::setLastName(const std::string& lastName)
+void	Contact::setLastName(const std::string& name)
 {
-	if (!validateName(lastName))
-		throw std::runtime_error("Invalid last name.");
-	this->lastName = lastName;
+	lastName = name;
 }
 
-void	Contact::setNickName(const std::string& nickName)
+void	Contact::setNickName(const std::string& name)
 {
-	if (!validateName(nickName))
-		throw std::runtime_error("Invalid nick name.");
-	this->nickName = nickName;
+	nickName = name;
 }
 
-void	Contact::setPhoneNumber(const std::string& phoneNumber)
+void	Contact::setPhoneNumber(const std::string& number)
 {
-	if (!validateNumber(phoneNumber))
-		throw std::runtime_error("Invalid phone number.");
-	this->phoneNumber = phoneNumber;
+	phoneNumber = number;
 }
 
-void	Contact::setDarkestSecret(const std::string& darkestSecret)
+void	Contact::setDarkestSecret(const std::string& secret)
 {
-	this->darkestSecret = darkestSecret;
-}
-
-bool	Contact::validateName(const std::string& name)
-{
-	if (!name.length() || !isAlphabetic(name))
-		return (false);
-	return (true);
-}
-
-bool	Contact::isAlphabetic(const std::string& str)
-{
-	size_t	length = str.length();
-
-	for (size_t i = 0; i < length; i++) {
-		if (!std::isalpha(str[i]))
-			return (false);
-	}
-	return (true);
-}
-
-bool	Contact::validateNumber(const std::string& number)
-{
-	if (!number.length() || !isNumeric(number))
-		return (false);
-	return (true);
-}
-
-bool	Contact::isNumeric(const std::string& str)
-{
-	size_t	length = str.length();
-
-	for (size_t i = 0; i < length; i++) {
-		if (!std::isdigit(str[i]))
-			return (false);
-	}
-	return (true);
+	darkestSecret = secret;
 }

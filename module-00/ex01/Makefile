@@ -5,10 +5,10 @@ CYAN  := \033[36m
 CHECK := \342\234\224
 LOG   := printf "[$(CYAN)$(CHECK)$(RESET)] %s\n"
 
-SRCS     := main.cpp PhoneBook.cpp Contact.cpp UserInterface.cpp
-HEADERS  := PhoneBook.hpp Contact.hpp UserInterface.hpp
+SRCS     := main.cpp PhoneBook.cpp Contact.cpp UserInterface.cpp TableFormatter.cpp
+HEADERS  := PhoneBook.hpp Contact.hpp UserInterface.hpp TableFormatter.hpp
 CXX      := c++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++98
+CXXFLAGS := -Wall -Wextra -Werror -std=c++98 -g
 
 .PHONY: all
 all: $(NAME)
