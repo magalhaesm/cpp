@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/30 22:29:42 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/06/30 22:36:38 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ PhoneBook::PhoneBook()
 
 void	PhoneBook::addContact()
 {
-	ui.showMessage("Add new contact:");
+	ui.display("Add new contact:");
 	try {
 		validationContact.setFirstName(getText("First name: "));
 		validationContact.setLastName(getText("Last name: "));
@@ -32,7 +32,7 @@ void	PhoneBook::addContact()
 	}
 	contacts[contactIndex] = validationContact;
 	contactIndex++;
-	ui.showMessage("Contact added!");
+	ui.display("Contact added!");
 }
 
 void	PhoneBook::searchContact()
@@ -41,12 +41,12 @@ void	PhoneBook::searchContact()
 	formatter.appendField("First Name");
 	formatter.appendField("Last Name");
 	formatter.appendField("Nick Name");
-	ui.showMessage(formatter.createTableHeader());
+	ui.display(formatter.createTableHeader());
 	formatter.appendField("0");
 	formatter.appendField(contacts[0].getFirstName());
 	formatter.appendField(contacts[0].getLastName());
 	formatter.appendField(contacts[0].getNickName());
-	ui.showMessage(formatter.createTableRow());
+	ui.display(formatter.createTableRow());
 }
 
 // TODO: criar função next que retorna o próximo contato
