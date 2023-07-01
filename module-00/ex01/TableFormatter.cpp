@@ -6,15 +6,15 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:21 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/30 22:14:15 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/01 09:57:20 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "TableFormatter.hpp"
 
-static const char	SEP = '|';
-static const char	LINE = '-';
-static const char	CORNER = '+';
+static const char SEP = '|';
+static const char LINE = '-';
+static const char CORNER = '+';
 
 static std::string	truncate(const std::string &str, size_t width);
 
@@ -26,8 +26,8 @@ TableFormatter::TableFormatter()
 
 std::string	TableFormatter::generateSeparatorRow(void)
 {
-	std::string	line;
-	std::string	column;
+	std::string line;
+	std::string column;
 
 	line += CORNER;
 	column = std::string(fieldWidth, LINE);
@@ -40,12 +40,12 @@ std::string	TableFormatter::generateSeparatorRow(void)
 
 std::string	TableFormatter::createTableHeader(void)
 {
-	std::string	header;
-	std::string	separator = generateSeparatorRow();
+	std::string header;
+	std::string separator = generateSeparatorRow();
 
 	header = separator + '\n';
-	header += SEP + tableRow + '\n';
-	header += separator;
+	header += SEP + buffer + '\n';
+	header += separator + '\n';
 	resetTable();
 
 	return header;
@@ -53,10 +53,10 @@ std::string	TableFormatter::createTableHeader(void)
 
 std::string	TableFormatter::createTableRow(void)
 {
-	std::string	row;
+	std::string row;
 
-	row += SEP + tableRow + '\n';
-	row += generateSeparatorRow();
+	row += SEP + buffer + '\n';
+	row += generateSeparatorRow() + '\n';
 	resetTable();
 
 	return row;
@@ -64,19 +64,19 @@ std::string	TableFormatter::createTableRow(void)
 
 void	TableFormatter::appendField(const std::string &str)
 {
-	tableRow.append(formatField(str) + SEP);
+	buffer.append(formatField(str) + SEP);
 	tableColumns++;
 }
 
 void	TableFormatter::resetTable()
 {
-	tableRow.erase();
+	buffer.erase();
 	tableColumns = 0;
 }
 
 std::string	TableFormatter::formatField(const std::string &str)
 {
-	std::ostringstream	row;
+	std::ostringstream row;
 
 	row << std::right << std::setw(fieldWidth) << truncate(str, fieldWidth);
 	return row.str();

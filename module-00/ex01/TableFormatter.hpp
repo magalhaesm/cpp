@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:07 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/30 22:14:26 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/01 00:44:37 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ public:
 private:
 	size_t		fieldWidth;
 	size_t		tableColumns;
-	std::string	tableRow;
+	std::string	buffer;
+
 	std::string	formatField(const std::string &str);
 	std::string	generateSeparatorRow(void);
 	void		resetTable(void);
