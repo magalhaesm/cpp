@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/01 11:46:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:48:51 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ std::string	PhoneBook::createContactTable(void)
 	formatter.appendField("Index");
 	formatter.appendField("First Name");
 	formatter.appendField("Last Name");
-	formatter.appendField("Nick Name");
+	formatter.appendField("Nickname");
 	table = formatter.createTableHeader();
 
 	for (size_t i = calculateStartIndex(); i < numContacts; i++) {
