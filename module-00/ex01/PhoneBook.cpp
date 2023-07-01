@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/01 11:40:14 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:46:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,20 @@ PhoneBook::PhoneBook()
 
 void	PhoneBook::addContact()
 {
+	Contact newContact;
+
 	ui.display("Add new contact:");
 	try {
-		validationContact.setFirstName(getText("First name: "));
-		validationContact.setLastName(getText("Last name: "));
-		validationContact.setNickName(getText("Nickname: "));
-		validationContact.setPhoneNumber(getNumber("Phone number: "));
-		validationContact.setDarkestSecret(ui.getUserInput("Darkest secret: "));
+		newContact.setFirstName(getText("First name: "));
+		newContact.setLastName(getText("Last name: "));
+		newContact.setNickName(getText("Nickname: "));
+		newContact.setPhoneNumber(getNumber("Phone number: "));
+		newContact.setDarkestSecret(ui.getUserInput("Darkest secret: "));
 	} catch (const std::runtime_error &err) {
 		ui.log(err.what());
 		return ;
 	}
-	addToContacts(validationContact);
+	addToContacts(newContact);
 	ui.display("Contact added!");
 }
 
