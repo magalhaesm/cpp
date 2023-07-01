@@ -6,15 +6,17 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/06/30 22:36:38 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:40:14 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
+static std::string	toString(size_t nbr);
+
 PhoneBook::PhoneBook()
 {
-	contactIndex = 0;
+	numContacts = 0;
 }
 
 void	PhoneBook::addContact()
@@ -30,26 +32,56 @@ void	PhoneBook::addContact()
 		ui.log(err.what());
 		return ;
 	}
-	contacts[contactIndex] = validationContact;
-	contactIndex++;
+	addToContacts(validationContact);
 	ui.display("Contact added!");
+}
+
+void	PhoneBook::addToContacts(const Contact &contact)
+{
+	contacts[numContacts % CAPACITY] = contact;
+	numContacts++;
 }
 
 void	PhoneBook::searchContact()
 {
+	ui.display(createContactTable());
+}
+
+static std::string	toString(size_t nbr)
+{
+	std::ostringstream oss;
+
+	oss << nbr;
+	return oss.str();
+}
+
+size_t PhoneBook::calculateStartIndex(void)
+{
+	return (numContacts > CAPACITY) ? numContacts % CAPACITY : 0;
+}
+
+std::string	PhoneBook::createContactTable(void)
+{
+	size_t		idx;
+	std::string	table;
+
 	formatter.appendField("Index");
 	formatter.appendField("First Name");
 	formatter.appendField("Last Name");
 	formatter.appendField("Nick Name");
-	ui.display(formatter.createTableHeader());
-	formatter.appendField("0");
-	formatter.appendField(contacts[0].getFirstName());
-	formatter.appendField(contacts[0].getLastName());
-	formatter.appendField(contacts[0].getNickName());
-	ui.display(formatter.createTableRow());
-}
+	table = formatter.createTableHeader();
 
-// TODO: criar função next que retorna o próximo contato
+	for (size_t i = calculateStartIndex(); i < numContacts; i++) {
+		idx = i % CAPACITY;
+		formatter.appendField(toString(idx));
+		formatter.appendField(contacts[idx].getFirstName());
+		formatter.appendField(contacts[idx].getLastName());
+		formatter.appendField(contacts[idx].getNickName());
+		table += formatter.createTableRow();
+	}
+
+	return table;
+}
 
 std::string	PhoneBook::getText(const std::string &prompt)
 {
