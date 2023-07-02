@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:24:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/02 12:56:56 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:13:35 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ private:
 	std::string		getText(const std::string &prompt);
 	std::string		getNumber(const std::string &prompt);
 	std::string		createContactTable(void);
-	std::string		getContactDetail(Contact &contact);
+	std::string		getContactInfo(Contact &contact);
 
 	void	addToContacts(const Contact &contact);
 	bool	validateName(const std::string &name);

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/02 13:02:52 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:17:02 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,24 @@ void	PhoneBook::searchContact()
 			ui.showError("Invalid index. Please choose one within the range.");
 	} while (index > numContacts);
 
-	ui.showMessage(getContactDetail(contacts[index]));
+	ui.showMessage(getContactInfo(contacts[index]));
 }
 
-std::string	PhoneBook::getContactDetail(Contact &contact)
+std::string	PhoneBook::getContactInfo(Contact &contact)
 {
-	std::string	details;
+	std::string	info;
 	std::string	separator(45, '*');
 
-	details += "\n" + separator + "\n";
-	details += "Contact Details:\n";
-	details += "- First Name: " + contact.getFirstName() + '\n';
-	details += "- Last Name: " + contact.getLastName() + '\n';
-	details += "- Nickname: " + contact.getNickname() + '\n';
-	details += "- Phone Number: " + contact.getPhoneNumber() + '\n';
-	details += "- Darkest Secret: " + contact.getDarkestSecret() + '\n';
-	details += separator;
+	info += "\n" + separator + "\n";
+	info += "Contact Information:\n";
+	info += "- First Name: " + contact.getFirstName() + '\n';
+	info += "- Last Name: " + contact.getLastName() + '\n';
+	info += "- Nickname: " + contact.getNickname() + '\n';
+	info += "- Phone Number: " + contact.getPhoneNumber() + '\n';
+	info += "- Darkest Secret: " + contact.getDarkestSecret() + '\n';
+	info += separator;
 
-	return details;
-}
-
-static std::string	toString(size_t nbr)
-{
-	std::ostringstream	number;
-
-	number << nbr;
-	return number.str();
+	return info;
 }
 
 std::string	PhoneBook::createContactTable(void)
@@ -181,4 +173,12 @@ bool	PhoneBook::isNumeric(const std::string &str)
 			return false;
 	}
 	return true;
+}
+
+static std::string	toString(size_t nbr)
+{
+	std::ostringstream	number;
+
+	number << nbr;
+	return number.str();
 }
