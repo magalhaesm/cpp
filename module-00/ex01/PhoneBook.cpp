@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/01 11:48:51 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:02:52 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,86 @@
 
 static std::string	toString(size_t nbr);
 
-PhoneBook::PhoneBook()
+PhoneBook::PhoneBook(UserInterface &userInterface)
 {
 	numContacts = 0;
+	ui = userInterface;
 }
 
 void	PhoneBook::addContact()
 {
-	Contact newContact;
+	Contact	newContact;
 
-	ui.display("Add new contact:");
-	try {
-		newContact.setFirstName(getText("First name: "));
-		newContact.setLastName(getText("Last name: "));
-		newContact.setNickName(getText("Nickname: "));
-		newContact.setPhoneNumber(getNumber("Phone number: "));
-		newContact.setDarkestSecret(ui.getUserInput("Darkest secret: "));
-	} catch (const std::runtime_error &err) {
-		ui.log(err.what());
-		return ;
-	}
+	ui.showMessage("\n[+] Add new contact:");
+	newContact.setFirstName(getText("First name: "));
+	newContact.setLastName(getText("Last name: "));
+	newContact.setNickname(getText("Nickname: "));
+	newContact.setPhoneNumber(getNumber("Phone number: "));
+	newContact.setDarkestSecret(ui.getUserInput("Darkest secret: "));
+
 	addToContacts(newContact);
-	ui.display("Contact added!");
+	ui.showMessage("New contact has been added!");
 }
 
 void	PhoneBook::addToContacts(const Contact &contact)
 {
-	contacts[numContacts % CAPACITY] = contact;
-	numContacts++;
+	static size_t	index;
+
+	contacts[index % CAPACITY] = contact;
+	index++;
+	numContacts = (index < CAPACITY) ? index : CAPACITY;
 }
 
 void	PhoneBook::searchContact()
 {
-	ui.display(createContactTable());
+	std::string	number;
+	size_t		index;
+
+	if (!numContacts)
+	{
+		ui.showError("\nThe phonebook is currently empty.");
+		return ;
+	}
+
+	ui.showMessage(createContactTable());
+	do {
+		number = getNumber("[+] Please choose an index to display: ");
+		index = std::atoi(number.c_str());
+
+		if (index > numContacts)
+			ui.showError("Invalid index. Please choose one within the range.");
+	} while (index > numContacts);
+
+	ui.showMessage(getContactDetail(contacts[index]));
+}
+
+std::string	PhoneBook::getContactDetail(Contact &contact)
+{
+	std::string	details;
+	std::string	separator(45, '*');
+
+	details += "\n" + separator + "\n";
+	details += "Contact Details:\n";
+	details += "- First Name: " + contact.getFirstName() + '\n';
+	details += "- Last Name: " + contact.getLastName() + '\n';
+	details += "- Nickname: " + contact.getNickname() + '\n';
+	details += "- Phone Number: " + contact.getPhoneNumber() + '\n';
+	details += "- Darkest Secret: " + contact.getDarkestSecret() + '\n';
+	details += separator;
+
+	return details;
 }
 
 static std::string	toString(size_t nbr)
 {
-	std::ostringstream oss;
+	std::ostringstream	number;
 
-	oss << nbr;
-	return oss.str();
-}
-
-size_t PhoneBook::calculateStartIndex(void)
-{
-	return (numContacts > CAPACITY) ? numContacts % CAPACITY : 0;
+	number << nbr;
+	return number.str();
 }
 
 std::string	PhoneBook::createContactTable(void)
 {
-	size_t		idx;
 	std::string	table;
 
 	formatter.appendField("Index");
@@ -73,12 +102,11 @@ std::string	PhoneBook::createContactTable(void)
 	formatter.appendField("Nickname");
 	table = formatter.createTableHeader();
 
-	for (size_t i = calculateStartIndex(); i < numContacts; i++) {
-		idx = i % CAPACITY;
+	for (size_t idx = 0; idx < numContacts; idx++) {
 		formatter.appendField(toString(idx));
 		formatter.appendField(contacts[idx].getFirstName());
 		formatter.appendField(contacts[idx].getLastName());
-		formatter.appendField(contacts[idx].getNickName());
+		formatter.appendField(contacts[idx].getNickname());
 		table += formatter.createTableRow();
 	}
 
@@ -95,7 +123,7 @@ std::string	PhoneBook::getText(const std::string &prompt)
 		valid = validateName(name);
 	} while (!valid);
 
-	return (name);
+	return name;
 }
 
 std::string	PhoneBook::getNumber(const std::string &prompt)
@@ -108,16 +136,16 @@ std::string	PhoneBook::getNumber(const std::string &prompt)
 		valid = validateNumber(number);
 	} while (!valid);
 
-	return (number);
+	return number;
 }
 
 bool	PhoneBook::validateName(const std::string &name)
 {
 	if (!isAlphabetic(name)) {
-		ui.log("Only letters are expected.");
-		return (false);
+		ui.showError("Only letters are expected.");
+		return false;
 	}
-	return (true);
+	return true;
 }
 
 bool	PhoneBook::isAlphabetic(const std::string &str)
@@ -126,22 +154,22 @@ bool	PhoneBook::isAlphabetic(const std::string &str)
 
 	for (size_t i = 0; i < length; i++) {
 		if (!std::isalpha(str[i]))
-			return (false);
+			return false;
 	}
-	return (true);
+	return true;
 }
 
 bool	PhoneBook::validateNumber(const std::string &str)
 {
 	if (!isNumeric(str)) {
-		ui.log("Only numbers are expected.");
-		return (false);
+		ui.showError("Only positive numbers are expected.");
+		return false;
 	}
 	if (str.length() > 14) {
-		ui.log("Input is too long. Please provide a shorter number.");
-		return (false);
+		ui.showError("Input is too long. Please provide a shorter number.");
+		return false;
 	}
-	return (true);
+	return true;
 }
 
 bool	PhoneBook::isNumeric(const std::string &str)
@@ -150,7 +178,7 @@ bool	PhoneBook::isNumeric(const std::string &str)
 
 	for (size_t i = 0; i < length; i++) {
 		if (!std::isdigit(str[i]))
-			return (false);
+			return false;
 	}
-	return (true);
+	return true;
 }

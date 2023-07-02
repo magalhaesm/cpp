@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:07 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/01 00:44:37 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/02 12:57:46 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <sstream>
 # include <iomanip>
 
-class TableFormatter
-{
+class TableFormatter {
+
 public:
 	TableFormatter();
 	std::string	createTableHeader(void);
