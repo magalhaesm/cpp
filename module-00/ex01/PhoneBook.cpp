@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/02 13:17:02 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:49:15 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	PhoneBook::addContact()
 {
 	Contact	newContact;
 
-	ui.showMessage("\n[+] Add new contact:");
+	ui.displayMessage("\n[+] Add new contact:");
 	newContact.setFirstName(getText("First name: "));
 	newContact.setLastName(getText("Last name: "));
 	newContact.setNickname(getText("Nickname: "));
@@ -32,7 +32,7 @@ void	PhoneBook::addContact()
 	newContact.setDarkestSecret(ui.getUserInput("Darkest secret: "));
 
 	addToContacts(newContact);
-	ui.showMessage("New contact has been added!");
+	ui.displayMessage("New contact has been added!");
 }
 
 void	PhoneBook::addToContacts(const Contact &contact)
@@ -51,20 +51,20 @@ void	PhoneBook::searchContact()
 
 	if (!numContacts)
 	{
-		ui.showError("\nThe phonebook is currently empty.");
+		ui.displayError("\nThe phonebook is currently empty.");
 		return ;
 	}
 
-	ui.showMessage(createContactTable());
+	ui.displayMessage(createContactTable());
 	do {
 		number = getNumber("[+] Please choose an index to display: ");
 		index = std::atoi(number.c_str());
 
 		if (index > numContacts)
-			ui.showError("Invalid index. Please choose one within the range.");
+			ui.displayError("Invalid index. Please choose one within the range.");
 	} while (index > numContacts);
 
-	ui.showMessage(getContactInfo(contacts[index]));
+	ui.displayMessage(getContactInfo(contacts[index]));
 }
 
 std::string	PhoneBook::getContactInfo(Contact &contact)
@@ -134,7 +134,7 @@ std::string	PhoneBook::getNumber(const std::string &prompt)
 bool	PhoneBook::validateName(const std::string &name)
 {
 	if (!isAlphabetic(name)) {
-		ui.showError("Only letters are expected.");
+		ui.displayError("Only letters are expected.");
 		return false;
 	}
 	return true;
@@ -154,11 +154,11 @@ bool	PhoneBook::isAlphabetic(const std::string &str)
 bool	PhoneBook::validateNumber(const std::string &str)
 {
 	if (!isNumeric(str)) {
-		ui.showError("Only positive numbers are expected.");
+		ui.displayError("Only positive numbers are expected.");
 		return false;
 	}
 	if (str.length() > 14) {
-		ui.showError("Input is too long. Please provide a shorter number.");
+		ui.displayError("Input is too long. Please provide a shorter number.");
 		return false;
 	}
 	return true;

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:31:09 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/03 14:28:35 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:49:16 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	main(void)
 	PhoneBook		phonebook(ui);
 	std::string		cmd;
 
-	ui.showMessage("Welcome to the phonebook program!\n");
-	ui.showMessage("Available commands:");
-	ui.showMessage("1. ADD - Add a new contact");
-	ui.showMessage("2. SEARCH - Search for a contact");
-	ui.showMessage("0. EXIT - Exit the program");
+	ui.displayMessage("Welcome to the phonebook program!\n");
+	ui.displayMessage("Available commands:");
+	ui.displayMessage("1. ADD - Add a new contact");
+	ui.displayMessage("2. SEARCH - Search for a contact");
+	ui.displayMessage("0. EXIT - Exit the program");
 
 	while (true) {
 		cmd = ui.getUserInput("\nEnter a number (1: ADD, 2: SEARCH, 0: EXIT): ");
@@ -32,11 +32,11 @@ int	main(void)
 		else if (cmd == "2")
 			phonebook.searchContact();
 		else if (cmd == "0") {
-			ui.showMessage("Exiting the program...");
+			ui.displayMessage("Exiting the program...");
 			break;
 		}
 		else
-			ui.showError("Invalid command! Please try again.");
+			ui.displayError("Invalid command! Please try again.");
 	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 09:49:27 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/02 12:57:31 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:49:14 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ class UserInterface {
 public:
 	std::string	getUserInput(const std::string& prompt);
 
-	void	showMessage(const std::string& message);
-	void	showError(const std::string& message);
+	void	displayMessage(const std::string& message);
+	void	displayError(const std::string& message);
 };
 
 #endif // !USERINTERFACE_HPP

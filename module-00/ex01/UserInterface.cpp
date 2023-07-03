@@ -6,11 +6,15 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 09:49:32 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/02 13:06:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:53:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "UserInterface.hpp"
+
+#define RED "\e[1;31m"
+#define GREEN "\e[1;32m"
+#define RESET "\e[m"
 
 std::string	UserInterface::getUserInput(const std::string &prompt)
 {
@@ -22,28 +26,28 @@ std::string	UserInterface::getUserInput(const std::string &prompt)
 
 		if (std::cin.eof())
 		{
-			showError("\nOperation canceled. End of input (EOF) detected.");
+			displayError("\nOperation canceled. End of input (EOF) detected.");
 			exit(EXIT_FAILURE);
 		}
 
 		if (input.empty())
-			showError("This field cannot be left empty.");
+			displayError("This field cannot be left empty.");
 
 		if (input.length() > 100)
 		{
 			input.clear();
-			showError("Field length exceeds the maximum limit of 100 characters.");
+			displayError("Field length exceeds the maximum limit of 100 characters.");
 		}
 	}
 	return (input);
 }
 
-void	UserInterface::showMessage(const std::string &message)
+void	UserInterface::displayMessage(const std::string &message)
 {
 	std::cout << message << std::endl;
 }
 
-void	UserInterface::showError(const std::string &message)
+void	UserInterface::displayError(const std::string &message)
 {
-	std::cerr << message << std::endl;
+	std::cout << RED << message << RESET << std::endl;
 }
