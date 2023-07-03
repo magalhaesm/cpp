@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 14:41:08 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/03 12:03:36 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:29:00 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Account::Account() {}
 Account::Account(int initial_deposit)
 {
 	_amount = initial_deposit;
-	_totalAmount += _amount;
+	_totalAmount += initial_deposit;
 
 	_accountIndex = _nbAccounts;
 	_nbAccounts++;

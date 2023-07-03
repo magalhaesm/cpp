@@ -30,12 +30,14 @@ check: $(NAME)
 	diff original.log testing.log
 
 clean:
-	@$(LOG) "Removing $(NAME)"
-	@$(RM) -r $(NAME)
-
-fclean: clean
 	@$(LOG) "Removing objects"
 	@$(RM) -r $(OBJS)
+	@$(LOG) "Removing test files"
+	@$(RM) original.log testing.log
+
+fclean: clean
+	@$(LOG) "Removing $(NAME)"
+	@$(RM) -r $(NAME)
 
 re: clean all
 
