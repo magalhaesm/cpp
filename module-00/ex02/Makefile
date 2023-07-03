@@ -8,24 +8,29 @@ LOG   := printf "[$(CYAN)$(CHECK)$(RESET)] %s\n"
 SRCS     := Account.cpp tests.cpp
 HEADERS  := Account.hpp
 CXX      := c++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++98 -g
+CXXFLAGS := -Wall -Wextra -Werror -std=c++98
 
-.PHONY: all
 all: $(NAME)
 
 $(NAME): $(SRCS) $(HEADERS)
 	@$(CXX) $(CXXFLAGS) $^ -o $@
-	@$(LOG) "Building $@"
+	@$(LOG) "Compiling $@"
 
-.PHONY: clean
+check: $(NAME)
+	@$(LOG) "Creating log file"
+	./$(NAME) > output.log
+	@$(LOG) "Remove timestamps"
+	cut -d ' ' -f 2 19920104_091532.log > original.log
+	cut -d ' ' -f 2 output.log > testing.log
+	@$(LOG) "Compare results"
+	diff original.log testing.log
+
 clean:
 	@$(LOG) "Removing $(NAME)"
 	@$(RM) -r $(NAME)
 
-.PHONY: fclean
 fclean: clean
-	@$(LOG) "Cleaning $(BUILD_DIR)"
-	@$(RM) -r $(BUILD_DIR)
 
-.PHONY: re
 re: clean all
+
+.PHONY: all, check, clean, fclean, re

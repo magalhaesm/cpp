@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 14:41:08 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/03 10:33:15 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:12:28 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	Account::makeDeposit( int deposit )
 
 	_amount += deposit;
 	_totalAmount += deposit;
+	_totalNbDeposits++;
 	_nbDeposits++;
 
 	_displayTimestamp();
@@ -100,6 +101,7 @@ bool	Account::makeWithdrawal( int withdrawal )
 	{
 		_amount -= withdrawal;
 		_totalAmount -= withdrawal;
+		_totalNbWithdrawals++;
 		_nbWithdrawals++;
 
 		std::cout << withdrawal << ";"
