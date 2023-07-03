@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:09:16 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/02 12:33:35 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:08:50 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ public:
 	void	setPhoneNumber(const std::string &number);
 	void	setDarkestSecret(const std::string &secret);
 
-	const std::string	&getFirstName();
-	const std::string	&getLastName();
-	const std::string	&getNickname();
-	const std::string	&getPhoneNumber();
-	const std::string	&getDarkestSecret();
+	const std::string	&getFirstName() const;
+	const std::string	&getLastName() const;
+	const std::string	&getNickname() const;
+	const std::string	&getPhoneNumber() const;
+	const std::string	&getDarkestSecret() const;
 
 private:
 	std::string	firstName;

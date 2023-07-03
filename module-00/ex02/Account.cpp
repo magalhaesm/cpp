@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 14:41:08 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/03 12:29:00 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:01:28 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <ctime>
 #include <iostream>
 
-int Account::_nbAccounts = 0;
+int	Account::_nbAccounts = 0;
 int	Account::_totalAmount = 0;
 int	Account::_totalNbDeposits = 0;
 int	Account::_totalNbWithdrawals = 0;

@@ -6,33 +6,33 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:12:23 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/02 12:33:42 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:09:08 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
-const std::string	&Contact::getFirstName(void)
+const std::string	&Contact::getFirstName(void) const
 {
 	return (firstName);
 }
 
-const std::string	&Contact::getLastName(void)
+const std::string	&Contact::getLastName(void) const
 {
 	return (lastName);
 }
 
-const std::string	&Contact::getNickname(void)
+const std::string	&Contact::getNickname(void) const
 {
 	return (nickName);
 }
 
-const std::string	&Contact::getPhoneNumber(void)
+const std::string	&Contact::getPhoneNumber(void) const
 {
 	return (phoneNumber);
 }
 
-const std::string	&Contact::getDarkestSecret(void)
+const std::string	&Contact::getDarkestSecret(void) const
 {
 	return (darkestSecret);
 }
