@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:31:09 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/02 12:41:17 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:28:35 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(void)
 	ui.showMessage("0. EXIT - Exit the program");
 
 	while (true) {
-		cmd = ui.getUserInput("\nEnter a command (1: ADD, 2: SEARCH, 0: EXIT): ");
+		cmd = ui.getUserInput("\nEnter a number (1: ADD, 2: SEARCH, 0: EXIT): ");
 		if (cmd == "1")
 			phonebook.addContact();
 		else if (cmd == "2")
