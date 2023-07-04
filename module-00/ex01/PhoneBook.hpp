@@ -6,33 +6,32 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:24:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/03 18:30:04 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:09:17 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
-# define CAPACITY 8
+# include <iomanip>
 
 # include "Contact.hpp"
 # include "TableFormatter.hpp"
-# include "UserInterface.hpp"
-
-# include <iomanip>
+# include "userInterface.hpp"
 
 class PhoneBook {
 
 public:
-	PhoneBook(UserInterface &userInterface);
+	PhoneBook(void);
 	void	addContact();
 	void	searchContact();
 
 private:
+	static const int	CAPACITY = 8;
+
 	size_t			numContacts;
 	Contact			contacts[CAPACITY];
 	TableFormatter	formatter;
-	UserInterface	ui;
 
 	std::string		getText(const std::string &prompt);
 	std::string		getNumber(const std::string &prompt);

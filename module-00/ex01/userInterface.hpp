@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   UserInterface.hpp                                  :+:      :+:    :+:   */
+/*   userInterface.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 09:49:27 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/04 11:38:27 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:17:56 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 # include <iostream>
 # include <cstdlib>
 
-class UserInterface {
+namespace ui {
 
-public:
 	std::string	getUserInput(const std::string& prompt);
 
 	void	display(const std::string& message);
 	void	displayInfo(const std::string& message);
 	void	displayWarning(const std::string& message);
 	void	displayError(const std::string& message);
-};
+
+}
 
 #endif // !USERINTERFACE_HPP
