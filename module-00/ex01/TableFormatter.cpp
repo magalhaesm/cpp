@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:21 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/01 23:35:34 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:50:08 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static const char SEP = '|';
 static const char LINE = '-';
 static const char CORNER = '+';
-
-static std::string	truncate(const std::string &str, size_t width);
 
 TableFormatter::TableFormatter()
 {
@@ -82,7 +80,7 @@ std::string	TableFormatter::formatField(const std::string &str)
 	return row.str();
 }
 
-static std::string	truncate(const std::string &str, size_t width)
+std::string	TableFormatter::truncate(const std::string &str, size_t width)
 {
 	if (str.length() > width)
 		return (str.substr(0, width - 1) + '.');

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/03 15:49:15 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:42:49 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	PhoneBook::addContact()
 {
 	Contact	newContact;
 
-	ui.displayMessage("\n[+] Add new contact:");
+	ui.displayWarning("\n[+] Add new contact:");
 	newContact.setFirstName(getText("First name: "));
 	newContact.setLastName(getText("Last name: "));
 	newContact.setNickname(getText("Nickname: "));
@@ -32,7 +32,7 @@ void	PhoneBook::addContact()
 	newContact.setDarkestSecret(ui.getUserInput("Darkest secret: "));
 
 	addToContacts(newContact);
-	ui.displayMessage("New contact has been added!");
+	ui.displayInfo("New contact has been added!");
 }
 
 void	PhoneBook::addToContacts(const Contact &contact)
@@ -55,19 +55,20 @@ void	PhoneBook::searchContact()
 		return ;
 	}
 
-	ui.displayMessage(createContactTable());
+	ui.displayWarning("\n[+] Search for contact:");
+	ui.display(createContactTable());
 	do {
 		number = getNumber("[+] Please choose an index to display: ");
 		index = std::atoi(number.c_str());
 
 		if (index > numContacts)
-			ui.displayError("Invalid index. Please choose one within the range.");
+			ui.displayError("Invalid index. Please choose one in the list.");
 	} while (index > numContacts);
 
-	ui.displayMessage(getContactInfo(contacts[index]));
+	ui.display(getContactInfo(contacts[index]));
 }
 
-std::string	PhoneBook::getContactInfo(Contact &contact)
+std::string	PhoneBook::getContactInfo(const Contact &contact)
 {
 	std::string	info;
 	std::string	separator(45, '*');

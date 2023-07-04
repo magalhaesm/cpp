@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 09:49:32 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/03 15:53:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:38:36 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #define RED "\e[1;31m"
 #define GREEN "\e[1;32m"
+#define YELLOW "\e[1;33m"
 #define RESET "\e[m"
 
 std::string	UserInterface::getUserInput(const std::string &prompt)
@@ -42,9 +43,19 @@ std::string	UserInterface::getUserInput(const std::string &prompt)
 	return (input);
 }
 
-void	UserInterface::displayMessage(const std::string &message)
+void	UserInterface::display(const std::string &message)
 {
 	std::cout << message << std::endl;
+}
+
+void	UserInterface::displayInfo(const std::string &message)
+{
+	std::cout << GREEN << message << RESET << std::endl;
+}
+
+void	UserInterface::displayWarning(const std::string &message)
+{
+	std::cout << YELLOW << message << RESET << std::endl;
 }
 
 void	UserInterface::displayError(const std::string &message)
