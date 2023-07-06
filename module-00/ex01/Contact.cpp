@@ -6,58 +6,58 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:12:23 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/03 15:09:08 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:41:46 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
-const std::string	&Contact::getFirstName(void) const
+const std::string& Contact::getFirstName(void) const
 {
-	return (firstName);
+    return (firstName);
 }
 
-const std::string	&Contact::getLastName(void) const
+const std::string& Contact::getLastName(void) const
 {
-	return (lastName);
+    return (lastName);
 }
 
-const std::string	&Contact::getNickname(void) const
+const std::string& Contact::getNickname(void) const
 {
-	return (nickName);
+    return (nickName);
 }
 
-const std::string	&Contact::getPhoneNumber(void) const
+const std::string& Contact::getPhoneNumber(void) const
 {
-	return (phoneNumber);
+    return (phoneNumber);
 }
 
-const std::string	&Contact::getDarkestSecret(void) const
+const std::string& Contact::getDarkestSecret(void) const
 {
-	return (darkestSecret);
+    return (darkestSecret);
 }
 
-void	Contact::setFirstName(const std::string &name)
+void Contact::setFirstName(const std::string& name)
 {
-	firstName = name;
+    firstName = name;
 }
 
-void	Contact::setLastName(const std::string &name)
+void Contact::setLastName(const std::string& name)
 {
-	lastName = name;
+    lastName = name;
 }
 
-void	Contact::setNickname(const std::string &name)
+void Contact::setNickname(const std::string& name)
 {
-	nickName = name;
+    nickName = name;
 }
 
-void	Contact::setPhoneNumber(const std::string &number)
+void Contact::setPhoneNumber(const std::string& number)
 {
-	phoneNumber = number;
+    phoneNumber = number;
 }
 
-void	Contact::setDarkestSecret(const std::string &secret)
+void Contact::setDarkestSecret(const std::string& secret)
 {
-	darkestSecret = secret;
+    darkestSecret = secret;
 }

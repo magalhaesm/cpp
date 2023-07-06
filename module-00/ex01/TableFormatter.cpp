@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:21 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/04 11:50:08 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:06:53 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,71 +18,71 @@ static const char CORNER = '+';
 
 TableFormatter::TableFormatter()
 {
-	fieldWidth = 10;
-	tableColumns = 0;
+    fieldWidth = 10;
+    tableColumns = 0;
 }
 
-std::string	TableFormatter::generateSeparatorRow(void)
+std::string TableFormatter::generateSeparatorRow(void)
 {
-	std::string line;
-	std::string column;
+    std::string line;
+    std::string column;
 
-	line += CORNER;
-	column = std::string(fieldWidth, LINE);
+    line += CORNER;
+    column = std::string(fieldWidth, LINE);
 
-	for (size_t i = 0; i < tableColumns; i++)
-		line += column + CORNER;
+    for (size_t i = 0; i < tableColumns; i++)
+        line += column + CORNER;
 
-	return line;
+    return line;
 }
 
-std::string	TableFormatter::createTableHeader(void)
+std::string TableFormatter::createTableHeader(void)
 {
-	std::string header;
-	std::string separator = generateSeparatorRow();
+    std::string header;
+    std::string separator = generateSeparatorRow();
 
-	header = separator + '\n';
-	header += SEP + buffer + '\n';
-	header += separator + '\n';
-	resetTable();
+    header = separator + '\n';
+    header += SEP + buffer + '\n';
+    header += separator + '\n';
+    resetTable();
 
-	return header;
+    return header;
 }
 
-std::string	TableFormatter::createTableRow(void)
+std::string TableFormatter::createTableRow(void)
 {
-	std::string row;
+    std::string row;
 
-	row += SEP + buffer + '\n';
-	row += generateSeparatorRow() + '\n';
-	resetTable();
+    row += SEP + buffer + '\n';
+    row += generateSeparatorRow() + '\n';
+    resetTable();
 
-	return row;
+    return row;
 }
 
-void	TableFormatter::appendField(const std::string &str)
+void TableFormatter::appendField(const std::string& str)
 {
-	buffer.append(formatField(str) + SEP);
-	tableColumns++;
+    buffer.append(formatField(str) + SEP);
+    tableColumns++;
 }
 
-void	TableFormatter::resetTable()
+void TableFormatter::resetTable()
 {
-	buffer.erase();
-	tableColumns = 0;
+    buffer.erase();
+    tableColumns = 0;
 }
 
-std::string	TableFormatter::formatField(const std::string &str)
+std::string TableFormatter::formatField(const std::string& str)
 {
-	std::ostringstream row;
+    std::ostringstream row;
 
-	row << std::right << std::setw(fieldWidth) << truncate(str, fieldWidth);
-	return row.str();
+    row << std::right << std::setw(fieldWidth) << truncate(str, fieldWidth);
+    return row.str();
 }
 
-std::string	TableFormatter::truncate(const std::string &str, size_t width)
+std::string TableFormatter::truncate(const std::string& str, size_t width)
 {
-	if (str.length() > width)
-		return (str.substr(0, width - 1) + '.');
-	return str;
+    if (str.length() > width)
+        return (str.substr(0, width - 1) + '.');
+    return str;
 }
