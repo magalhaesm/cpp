@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:34:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/05 15:06:57 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:54:42 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void PhoneBook::searchContact()
         number = getNumber("[+] Please choose an index to display: ");
         index = std::atoi(number.c_str());
 
-        if (index > numContacts)
+        if (index >= numContacts)
             ui::displayError("Invalid index. Please choose one in the list.");
-    } while (index > numContacts);
+    } while (index >= numContacts);
 
     ui::display(getContactInfo(contacts[index]));
 }
