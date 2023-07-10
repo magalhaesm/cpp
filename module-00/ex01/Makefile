@@ -7,25 +7,29 @@ LOG   := printf "[$(CYAN)$(CHECK)$(RESET)] %s\n"
 
 SRCS     := main.cpp PhoneBook.cpp Contact.cpp TableFormatter.cpp userInterface.cpp
 HEADERS  := PhoneBook.hpp Contact.hpp TableFormatter.hpp userInterface.hpp
-CXX      := c++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++98 -g
+OBJS     := $(SRCS:.cpp=.o)
 
-.PHONY: all
+CXX      := c++
+CXXFLAGS := -Wall -Wextra -Werror -std=c++98
+
 all: $(NAME)
 
-$(NAME): $(SRCS) $(HEADERS)
-	@$(CXX) $(CXXFLAGS) $^ -o $@
-	@$(LOG) "Building $@"
+$(NAME): $(OBJS)
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $@
+	@$(LOG) "Compiling $@"
 
-.PHONY: clean
+%.o: %.cpp $(HEADERS)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
+
 clean:
+	@$(LOG) "Removing objects"
+	@$(RM) -r $(OBJS)
+	@$(LOG) "Removing test files"
+
+fclean: clean
 	@$(LOG) "Removing $(NAME)"
 	@$(RM) -r $(NAME)
 
-.PHONY: fclean
-fclean: clean
-	@$(LOG) "Cleaning $(BUILD_DIR)"
-	@$(RM) -r $(BUILD_DIR)
-
-.PHONY: re
 re: clean all
+
+.PHONY: all, check, clean, fclean, re
