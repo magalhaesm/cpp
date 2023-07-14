@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:08:03 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/13 18:22:22 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:33:38 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class Weapon
 public:
     Weapon(std::string type);
 
-    std::string const& getType(void) const;
+    const std::string& getType(void) const;
     void setType(std::string type);
 
 private:
