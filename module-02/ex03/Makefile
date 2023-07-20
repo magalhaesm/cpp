@@ -1,4 +1,4 @@
-NAME := fixed
+NAME := bsp
 
 RESET := \033[0m
 CYAN  := \033[36m
