@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:28:07 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/17 11:50:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:35:34 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ Harl::Harl(void)
     logLevels[2] = "WARNING";
     logLevels[3] = "ERROR";
 
-    logFuncions[0] = &Harl::debug;
-    logFuncions[1] = &Harl::info;
-    logFuncions[2] = &Harl::warning;
-    logFuncions[3] = &Harl::error;
+    logFunctions[0] = &Harl::debug;
+    logFunctions[1] = &Harl::info;
+    logFunctions[2] = &Harl::warning;
+    logFunctions[3] = &Harl::error;
 }
 
 void Harl::complain(std::string level)
@@ -33,7 +33,7 @@ void Harl::complain(std::string level)
     {
         if (level == logLevels[idx])
         {
-            log = logFuncions[idx];
+            log = logFunctions[idx];
             (this->*log)();
             return;
         }

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:30:52 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/17 11:41:55 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:40:02 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ private:
     static const int levels = 4;
 
     std::string logLevels[levels];
-    logFunction logFuncions[levels];
+    logFunction logFunctions[levels];
 
     void debug(void);
     void info(void);
