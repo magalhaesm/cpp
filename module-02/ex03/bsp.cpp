@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:33:52 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/20 20:34:41 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:55:28 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ bool bsp(Point const a, Point const b, Point const c, Point const point)
     Fixed cp2 = calcCrossProduct(c, b, point);
     Fixed cp3 = calcCrossProduct(a, c, point);
 
-    return (cp1 > 0 && cp2 > 0 && cp3 > 0) || (cp1 < 0 && cp2 < 0 && cp3 < 0);
+    return (cp1 < 0 && cp2 < 0 && cp3 < 0) || (cp1 > 0 && cp2 > 0 && cp3 > 0);
 }
 
 /**
  * @brief Calculate the horizontal distance between two 2D points (a and b).
  *
- * This function calculates the horizontal distance between two 2D points (a and b) along the
- * x-axis.
+ * This function calculates the horizontal distance between two 2D points
+ * (a and b) along the x-axis.
  *
  * @param a The first 2D point.
  * @param b The second 2D point.
