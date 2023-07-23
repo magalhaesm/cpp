@@ -6,26 +6,30 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:33:52 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/22 18:55:28 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/23 12:45:11 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Point.hpp"
 
-static Fixed verticalDistance(const Point& a, const Point& b);
-static Fixed horizontalDistance(const Point& a, const Point& b);
-static Fixed calcCrossProduct(const Point& a, const Point& b, const Point& c);
+static Fixed abs(const Fixed& x);
+static Fixed calculateArea(const Point& a, const Point& b, const Point& c);
 
 /**
- * @brief Check if a point lies inside a triangle defined by three vertices.
+ * @brief Checks if a point lies inside a triangle defined by three vertices.
  *
  * This function determines whether a given point is inside a triangle formed by
  * three vertices (a, b, c).
- * It uses the cross product to check the orientation of the point with respect
- * to each edge of the triangle.
- * The function returns true if the point is inside the triangle, and false otherwise.
+ *
+ * To perform the check, the function uses the cross product method to determine
+ * the orientation of the point with respect to each edge of the triangle. This is
+ * done by calculating the area of three sub-triangles formed by the combinations of
+ * points (a, b, point), (b, c, point), and (c, a, point). If the point is inside
+ * the triangle, the sum of the areas of these sub-triangles will be equal to the
+ * area of the original triangle. Otherwise, the point will be outside the triangle.
+ *
  * @note If the point is collinear with any of the edges or vertices of the triangle,
- * it is considered outside.
+ * it is considered outside the triangle.
  *
  * The function handles triangles with both counter-clockwise and clockwise orientation.
  *
@@ -38,64 +42,45 @@ static Fixed calcCrossProduct(const Point& a, const Point& b, const Point& c);
  */
 bool bsp(Point const a, Point const b, Point const c, Point const point)
 {
-    Fixed cp1 = calcCrossProduct(b, a, point);
-    Fixed cp2 = calcCrossProduct(c, b, point);
-    Fixed cp3 = calcCrossProduct(a, c, point);
+    Fixed areaABC = calculateArea(a, b, c);
+    Fixed areaPAB = calculateArea(point, a, b);
+    Fixed areaPBC = calculateArea(point, b, c);
+    Fixed areaPCA = calculateArea(point, c, a);
 
-    return (cp1 < 0 && cp2 < 0 && cp3 < 0) || (cp1 > 0 && cp2 > 0 && cp3 > 0);
+    if (areaPAB == 0 || areaPBC == 0 || areaPCA == 0)
+    {
+        return false;
+    }
+
+    return (areaABC == areaPAB + areaPBC + areaPCA);
 }
 
 /**
- * @brief Calculate the horizontal distance between two 2D points (a and b).
+ * @brief Calculates the area of a triangle formed by three points.
  *
- * This function calculates the horizontal distance between two 2D points
- * (a and b) along the x-axis.
- *
- * @param a The first 2D point.
- * @param b The second 2D point.
- *
- * @return The horizontal distance between points a and b.
+ * @param p1 The first vertex of the triangle.
+ * @param p2 The second vertex of the triangle.
+ * @param p3 The third vertex of the triangle.
+ * @return The area of the triangle.
  */
-static Fixed horizontalDistance(const Point& a, const Point& b)
+static Fixed calculateArea(const Point& a, const Point& b, const Point& c)
 {
-    return a.getX() - b.getX();
+    Fixed term1 = a.getX() * (b.getY() - c.getY());
+    Fixed term2 = b.getX() * (c.getY() - a.getY());
+    Fixed term3 = c.getX() * (a.getY() - b.getY());
+
+    Fixed area = (term1 + term2 + term3) / 2.0f;
+
+    return abs(area);
 }
 
 /**
- * @brief Calculate the vertical distance between two 2D points (a and b).
+ * @brief Calculates the absolute value of a number.
  *
- * This function calculates the vertical distance between two 2D points (a and b)
- * along the y-axis.
- *
- * @param a The first 2D point.
- * @param b The second 2D point.
- *
- * @return The vertical distance between points a and b.
+ * @param number The number whose absolute value will be calculated.
+ * @return The absolute value of the given number.
  */
-static Fixed verticalDistance(const Point& a, const Point& b)
+static Fixed abs(const Fixed& number)
 {
-    return a.getY() - b.getY();
-}
-
-/**
- * @brief Calculate the cross product of three 2D points (vectors).
- *
- * This function calculates the cross product of three 2D points (a, b, c)
- * represented as vectors.
- * The cross product is a measure of the signed area of the parallelogram
- * formed by the vectors a and b with respect to the vector c.
- *
- * @param a The first 2D point (vector) a.
- * @param b The second 2D point (vector) b.
- * @param c The third 2D point (vector) c.
- *
- * @return The cross product of the vectors a, b, and c. It returns 0 if the
- *         points are collinear.
- */
-static Fixed calcCrossProduct(const Point& a, const Point& b, const Point& c)
-{
-    Fixed hvProduct = horizontalDistance(a, b) * verticalDistance(c, b);
-    Fixed vhProduct = verticalDistance(a, b) * horizontalDistance(c, b);
-
-    return hvProduct - vhProduct;
+    return (number < 0) ? number * -1 : number;
 }
