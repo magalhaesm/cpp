@@ -16,10 +16,6 @@ all: $(NAME)
 run: all
 	@./$(NAME)
 
-tests: all
-	@$(CXX) $(CXXFLAGS) Fixed.cpp tests.cpp -o $@
-	@./$@
-
 $(NAME): $(OBJS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $@
 	@$(LOG) "Compiling $@"
