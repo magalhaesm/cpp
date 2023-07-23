@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:33:52 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/23 12:45:11 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/23 12:48:57 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ bool bsp(Point const a, Point const b, Point const c, Point const point)
 /**
  * @brief Calculates the area of a triangle formed by three points.
  *
- * @param p1 The first vertex of the triangle.
- * @param p2 The second vertex of the triangle.
- * @param p3 The third vertex of the triangle.
+ * @param a The first vertex of the triangle.
+ * @param b The second vertex of the triangle.
+ * @param c The third vertex of the triangle.
  * @return The area of the triangle.
  */
 static Fixed calculateArea(const Point& a, const Point& b, const Point& c)
