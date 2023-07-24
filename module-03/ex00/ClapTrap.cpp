@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:18:33 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/23 17:13:49 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:13:09 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-    if (!m_energyPoints)
+    if (m_energyPoints <= 0)
     {
         std::cout << "[ ClapTrap ] - " << m_name << " can't repair, no energy left." << std::endl;
         return;
     }
 
-    if (!m_hitPoints)
+    if (m_hitPoints <= 0)
     {
         std::cout << "[ ClapTrap ] - " << m_name << " can't repair, no hit points left."
                   << std::endl;

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:17:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/23 17:14:01 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:12:57 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ private:
 
     std::string m_name;
     int m_hitPoints;
-    unsigned int m_energyPoints;
-    unsigned int m_attackDamage;
+    int m_energyPoints;
+    int m_attackDamage;
 };
 
 #endif // !CLAPTRAP_HPP
