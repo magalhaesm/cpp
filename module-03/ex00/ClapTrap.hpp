@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:17:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/24 16:12:57 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:59:12 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ public:
 
 private:
     ClapTrap(void);
-
-    static const int HEALTH;
 
     std::string m_name;
     int m_hitPoints;
