@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/20 17:19:09 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 17:51:26 by mdias-ma         ###   ########.fr       */
+/*   Created: 2023/07/24 22:43:23 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/07/25 15:13:24 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef DIAMONDTRAP_HPP
+#define DIAMONDTRAP_HPP
+
+#include <string>
+
+#include "ClapTrap.hpp"
 #include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
-int main(void)
+class DiamondTrap : public FragTrap, public ScavTrap
 {
-    FragTrap bot1("Bot1");
-    FragTrap bot2("Bot2");
+public:
+    DiamondTrap(const std::string& name);
+    ~DiamondTrap();
 
-    std::cout << std::endl;
-    bot1.attack(bot2.getName());
-    bot2.takeDamage(20);
+    using ScavTrap::attack;
+    void whoAmI();
 
-    std::cout << std::endl;
-    bot2.beRepaired(10);
+private:
+    std::string m_name;
 
-    bot1.highFivesGuys();
+    DiamondTrap();
+};
 
-    std::cout << std::endl;
-    return 0;
-}
+#endif // !DIAMONDTRAP_HPP

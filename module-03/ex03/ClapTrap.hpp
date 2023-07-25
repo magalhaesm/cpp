@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:17:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 17:47:19 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:51:56 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ public:
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
 
-private:
-    ClapTrap();
-
+protected:
     std::string m_name;
+
     int m_hitPoints;
     int m_energyPoints;
     int m_attackDamage;
+
+private:
+    ClapTrap();
 };
 
 #endif // !CLAPTRAP_HPP

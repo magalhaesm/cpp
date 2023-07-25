@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:17:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/24 16:25:33 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:50:59 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ public:
     ClapTrap(const ClapTrap& src);
     ClapTrap& operator=(const ClapTrap& rhs);
     ~ClapTrap();
+
+    const std::string& getName() const;
 
     void attack(const std::string& target);
     void takeDamage(unsigned int amount);

@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/20 17:19:09 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 17:51:26 by mdias-ma         ###   ########.fr       */
+/*   Created: 2023/07/24 19:34:41 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/07/25 15:17:08 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FragTrap.hpp"
+#ifndef FRAGTRAP_HPP
+#define FRAGTRAP_HPP
 
-int main(void)
+#include <string>
+
+#include "ClapTrap.hpp"
+
+class FragTrap : virtual public ClapTrap
 {
-    FragTrap bot1("Bot1");
-    FragTrap bot2("Bot2");
+public:
+    FragTrap(const std::string& name);
+    ~FragTrap();
 
-    std::cout << std::endl;
-    bot1.attack(bot2.getName());
-    bot2.takeDamage(20);
+    void highFivesGuys(void);
 
-    std::cout << std::endl;
-    bot2.beRepaired(10);
+private:
+    FragTrap();
+};
 
-    bot1.highFivesGuys();
-
-    std::cout << std::endl;
-    return 0;
-}
+#endif // !FRAGTRAP_HPP

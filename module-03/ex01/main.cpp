@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:19:09 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 16:26:52 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:50:36 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(void)
     bot1.guardGate();
 
     std::cout << std::endl;
-    bot1.attack("Bot2");
+    bot1.attack(bot2.getName());
     bot2.takeDamage(20);
 
     std::cout << std::endl;

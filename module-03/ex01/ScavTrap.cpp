@@ -6,13 +6,13 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 23:34:53 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/24 16:25:53 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:47:55 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(std::string name)
+ScavTrap::ScavTrap(const std::string& name)
     : ClapTrap(name)
 {
     m_hitPoints = 100;

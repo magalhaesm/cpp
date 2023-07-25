@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:18:33 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 16:28:49 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:29:46 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ ClapTrap::ClapTrap(const ClapTrap& src)
 {
     *this = src;
 
-    std::cout << "[ ClapTrap ] : Copy constructor called" << std::endl;
+    std::cout << "[ ClapTrap ] : " << m_name << " had the copy constructor called." << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)
@@ -35,7 +35,14 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)
     m_energyPoints = rhs.m_energyPoints;
     m_attackDamage = rhs.m_attackDamage;
 
+    std::cout << "[ ClapTrap ] : " << m_name << " had the copy assignment operator called."
+              << std::endl;
     return *this;
+}
+
+const std::string& ClapTrap::getName() const
+{
+    return m_name;
 }
 
 void ClapTrap::attack(const std::string& target)
@@ -86,6 +93,10 @@ void ClapTrap::beRepaired(unsigned int amount)
 
     std::cout << "[ ClapTrap ] : " << m_name << " recovers " << amount << " hit points."
               << std::endl;
+}
+
+ClapTrap::ClapTrap()
+{
 }
 
 ClapTrap::~ClapTrap()

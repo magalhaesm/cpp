@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 23:34:59 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/24 19:36:01 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:48:54 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 class ScavTrap : public ClapTrap
 {
 public:
-    ScavTrap(std::string name);
+    ScavTrap(const std::string& name);
     ~ScavTrap();
 
     void attack(const std::string& target);
