@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:12:12 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/30 18:47:23 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:01:14 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 
 #define GREEN "\033[1;32m"
 #define RESET "\033[0m"
+#define FAIL "\033[1;7;31mFAIL\033[0m"
 
-void print_title(const std::string title);
+void print_title(const std::string& title);
+void print_failure();
 
 int main()
 {
@@ -50,8 +52,9 @@ int main()
         try
         {
             Bureaucrat test("Bob", 0);
+            print_failure();
         }
-        catch (const std::invalid_argument& e)
+        catch (const std::exception& e)
         {
             std::cout << e.what() << std::endl;
         }
@@ -61,8 +64,9 @@ int main()
         try
         {
             Bureaucrat test("Bob", 151);
+            print_failure();
         }
-        catch (const std::invalid_argument& e)
+        catch (const std::exception& e)
         {
             std::cout << e.what() << std::endl;
         }
@@ -76,8 +80,9 @@ int main()
         try
         {
             test.incrementGrade();
+            print_failure();
         }
-        catch (const std::invalid_argument& e)
+        catch (const std::exception& e)
         {
             std::cout << e.what() << std::endl;
         }
@@ -91,16 +96,22 @@ int main()
         try
         {
             test.decrementGrade();
+            print_failure();
         }
-        catch (const std::invalid_argument& e)
+        catch (const std::exception& e)
         {
             std::cout << e.what() << std::endl;
         }
     }
 }
 
-void print_title(const std::string title)
+void print_title(const std::string& title)
 {
     std::cout << std::string(40, '-') << std::endl;
     std::cout << GREEN << "\n" << title << "\n" << RESET << std::endl;
+}
+
+void print_failure()
+{
+    std::cout << FAIL << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:02:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/30 17:54:28 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:52:58 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,10 @@ Bureaucrat::Bureaucrat()
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade)
-    : m_grade(grade)
+    : m_grade(150)
     , m_name(name)
 {
-    if (grade < 1)
-    {
-        throw GradeTooHighException();
-    }
-    else if (grade > 150)
-    {
-        throw GradeTooLowException();
-    }
+    setGrade(grade);
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& src)
