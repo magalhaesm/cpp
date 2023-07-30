@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 11:34:31 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/29 22:24:29 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:33:25 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 #define GREEN "\033[1;7;32m"
 #define RESET "\033[0m"
 
-void separator();
 void print_title(const std::string title);
 
 int main()
