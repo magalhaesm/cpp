@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:12:12 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 09:37:04 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:01:27 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,66 @@ void print_failure();
 
 int main()
 {
-    Bureaucrat marcelo("Marcelo", 81);
-    Form form("SomeForm", 80);
+    {
+        print_title("Test: Exception is Thrown for Grade Above Maximum in Constructor");
 
-    marcelo.signForm(form);
-    std::cout << form << std::endl;
+        try
+        {
+            Form form("Default", 0);
+            print_failure();
+        }
+        catch (const std::exception& error)
+        {
+            std::cout << error.what() << std::endl;
+        }
+    }
+    {
+        print_title("Test: Exception is Thrown for Grade Below Minimum in Constructor");
+
+        try
+        {
+            Form form("Default", 151);
+            print_failure();
+        }
+        catch (const std::exception& error)
+        {
+            std::cout << error.what() << std::endl;
+        }
+    }
+    {
+        print_title("Test: Form Successfully Signed");
+
+        Bureaucrat bob("Bob", 60);
+        Form form("Travel Request", 80);
+
+        try
+        {
+            std::cout << bob << std::endl;
+            bob.signForm(form);
+            std::cout << '\n' << form << std::endl;
+        }
+        catch (const std::exception& error)
+        {
+            std::cout << error.what() << std::endl;
+        }
+    }
+    {
+        print_title("Test: Form Not Successfully Signed");
+
+        Bureaucrat bob("Bob", 90);
+        Form form("Travel Request", 80);
+
+        try
+        {
+            std::cout << bob << std::endl;
+            bob.signForm(form);
+            std::cout << '\n' << form << std::endl;
+        }
+        catch (const std::exception& error)
+        {
+            std::cout << error.what() << std::endl;
+        }
+    }
 }
 
 void print_title(const std::string& title)
