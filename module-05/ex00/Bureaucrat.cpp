@@ -6,27 +6,32 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:02:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/30 18:52:58 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:38:47 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
+
 #include "Bureaucrat.hpp"
+
+const int Bureaucrat::highestGrade = 1;
+const int Bureaucrat::lowestGrade = 150;
 
 Bureaucrat::Bureaucrat()
 {
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade)
-    : m_grade(150)
+    : m_grade(lowestGrade)
     , m_name(name)
 {
     setGrade(grade);
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& src)
-    : m_name(src.m_name)
+Bureaucrat::Bureaucrat(const Bureaucrat& copy)
+    : m_name(copy.m_name)
 {
-    *this = src;
+    *this = copy;
 }
 
 Bureaucrat::~Bureaucrat()
@@ -55,11 +60,11 @@ int Bureaucrat::getGrade() const
 
 void Bureaucrat::setGrade(int grade)
 {
-    if (grade < 1)
+    if (grade < highestGrade)
     {
         throw GradeTooHighException();
     }
-    else if (grade > 150)
+    else if (grade > lowestGrade)
     {
         throw GradeTooLowException();
     }
@@ -78,17 +83,17 @@ void Bureaucrat::decrementGrade()
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException()
-    : std::invalid_argument("Grade is too high.")
+    : std::invalid_argument("Grade is too high")
 {
 }
 
 Bureaucrat::GradeTooLowException::GradeTooLowException()
-    : std::invalid_argument("Grade is too low.")
+    : std::invalid_argument("Grade is too low")
 {
 }
 
-std::ostream& operator<<(std::ostream& out, const Bureaucrat& in)
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& rhs)
 {
-    out << in.getName() << ", bureaucrat grade " << in.getGrade() << ".";
+    out << rhs.getName() << ", bureaucrat grade " << rhs.getGrade() << ".";
     return out;
 }

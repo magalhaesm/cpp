@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:01:17 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/30 17:54:09 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:38:56 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 #define BUREAUCRAT_HPP
 
 #include <string>
-#include <iostream>
 #include <stdexcept>
 
 class Bureaucrat
 {
 public:
     Bureaucrat(const std::string& name, int grade);
-    Bureaucrat(const Bureaucrat& src);
+    Bureaucrat(const Bureaucrat&);
     ~Bureaucrat();
 
-    Bureaucrat& operator=(const Bureaucrat& rhs);
+    Bureaucrat& operator=(const Bureaucrat&);
 
     const std::string& getName() const;
     int getGrade() const;
@@ -50,9 +49,12 @@ private:
     int m_grade;
     const std::string m_name;
 
+    static const int highestGrade;
+    static const int lowestGrade;
+
     void setGrade(int grade);
 };
 
-std::ostream& operator<<(std::ostream& out, const Bureaucrat& in);
+std::ostream& operator<<(std::ostream&, const Bureaucrat&);
 
 #endif // !BUREAUCRAT_HPP
