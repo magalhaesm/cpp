@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:51:24 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 21:52:22 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:53:28 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 std::ostream& operator<<(std::ostream& out, const ConversionPack& rhs)
 {
-    charConversionResult(out, rhs);
+    writeCharField(out, rhs);
     out << '\n';
-    intConversionResult(out, rhs);
+    writeIntField(out, rhs);
 
     out << std::fixed << std::setprecision(1) << '\n';
 
-    floatConversionResult(out, rhs);
+    writeFloatField(out, rhs);
     out << '\n';
-    doubleConversionResult(out, rhs);
+    writeDoubleField(out, rhs);
 
     return out;
 }
@@ -46,7 +46,7 @@ ConversionPack newPack()
     return pack;
 }
 
-void charConversionResult(std::ostream& out, const ConversionPack& rhs)
+void writeCharField(std::ostream& out, const ConversionPack& rhs)
 {
     out << "char: ";
 
@@ -64,7 +64,7 @@ void charConversionResult(std::ostream& out, const ConversionPack& rhs)
     }
 }
 
-void intConversionResult(std::ostream& out, const ConversionPack& rhs)
+void writeIntField(std::ostream& out, const ConversionPack& rhs)
 {
     out << "int: ";
 
@@ -78,7 +78,7 @@ void intConversionResult(std::ostream& out, const ConversionPack& rhs)
     }
 }
 
-void floatConversionResult(std::ostream& out, const ConversionPack& rhs)
+void writeFloatField(std::ostream& out, const ConversionPack& rhs)
 {
     out << "float: ";
 
@@ -92,7 +92,7 @@ void floatConversionResult(std::ostream& out, const ConversionPack& rhs)
     }
 }
 
-void doubleConversionResult(std::ostream& out, const ConversionPack& rhs)
+void writeDoubleField(std::ostream& out, const ConversionPack& rhs)
 {
     out << "double: ";
 

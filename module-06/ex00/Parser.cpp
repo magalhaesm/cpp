@@ -1,19 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Parser.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/02 23:26:12 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/08/03 00:02:42 by mdias-ma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Parser.hpp"
 
 Parser::Parser()
 {
 }
 
+const std::string Parser::supportedPseudos[totalPseudos] = {
+    "inff", "-inff", "+inff", "nanf", "inf", "-inf", "+inf", "nan"
+};
+
 ScalarType Parser::parseScalarType(const std::string& literal)
 {
-    if (!literal.length())
+    if (literal.empty())
     {
         return UNKNOWN;
     }
 
-    ScalarType type = UNKNOWN;
-
-    type = parseChar(literal);
+    ScalarType type = parseChar(literal);
     if (type != UNKNOWN)
     {
         return type;
@@ -25,13 +39,7 @@ ScalarType Parser::parseScalarType(const std::string& literal)
         return type;
     }
 
-    type = parsePseudoLiteral(literal);
-    if (type != UNKNOWN)
-    {
-        return type;
-    }
-
-    return UNKNOWN;
+    return parsePseudoLiteral(literal);
 }
 
 ScalarType Parser::parseChar(const std::string& literal)
@@ -68,13 +76,17 @@ ScalarType Parser::parseNumber(const std::string& literal)
         if (currentChar == '.')
         {
             if (hasDot)
+            {
                 return UNKNOWN;
+            }
             hasDot = true;
         }
         else if (currentChar == 'f' || currentChar == 'F')
         {
             if (hasF)
+            {
                 return UNKNOWN;
+            }
             hasF = true;
         }
         else if (!std::isdigit(currentChar))
@@ -84,27 +96,17 @@ ScalarType Parser::parseNumber(const std::string& literal)
         idx++;
     }
 
-    if (hasF)
-    {
-        return FLOAT;
-    }
-    return hasDot ? DOUBLE : INT;
+    return hasF ? FLOAT : (hasDot ? DOUBLE : INT);
 }
 
 ScalarType Parser::parsePseudoLiteral(const std::string& literal)
 {
-    if (literal == "nan" || literal == "nanf")
+    for (int idx = 0; idx < totalPseudos; ++idx)
     {
-        return PSEUDO;
+        if (literal == supportedPseudos[idx])
+        {
+            return PSEUDO;
+        }
     }
-    if (literal == "inff" || literal == "-inff" || literal == "+inff")
-    {
-        return PSEUDO;
-    }
-    else if (literal == "inf" || literal == "-inf" || literal == "+inf")
-    {
-        return PSEUDO;
-    }
-
     return UNKNOWN;
 }

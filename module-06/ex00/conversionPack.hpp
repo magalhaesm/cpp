@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:51:30 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 21:52:28 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:53:29 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ struct ConversionPack
 };
 
 ConversionPack newPack();
-void charConversionResult(std::ostream&, const ConversionPack&);
-void intConversionResult(std::ostream&, const ConversionPack&);
-void floatConversionResult(std::ostream&, const ConversionPack&);
-void doubleConversionResult(std::ostream&, const ConversionPack&);
+void writeCharField(std::ostream&, const ConversionPack&);
+void writeIntField(std::ostream&, const ConversionPack&);
+void writeFloatField(std::ostream&, const ConversionPack&);
+void writeDoubleField(std::ostream&, const ConversionPack&);
 
 std::ostream& operator<<(std::ostream&, const ConversionPack&);
 

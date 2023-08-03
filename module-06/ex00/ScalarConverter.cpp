@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:22:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 21:54:26 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:46:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static bool isInRange(long, long, long);
 static double extractPseudoLiteral(const std::string&);
 
-const ScalarConverter::ConversionFunction ScalarConverter::conversions[functions] = {
+const ScalarConverter::ConversionFunc ScalarConverter::conversions[functions] = {
     { CHAR, ScalarConverter::charConversion },
     { INT, ScalarConverter::intConversion },
     { FLOAT, ScalarConverter::floatConversion },
@@ -34,14 +34,11 @@ void ScalarConverter::convert(const std::string& literal)
 {
     ScalarType type = Parser::parseScalarType(literal);
 
-    func instance = 0;
-
     for (int idx = 0; idx < functions; ++idx)
     {
         if (type == conversions[idx].type)
         {
-            instance = conversions[idx].function;
-            instance(literal);
+            conversions[idx].function(literal);
             break;
         }
     }
@@ -151,18 +148,15 @@ static double extractPseudoLiteral(const std::string& literal)
 
     if (literal.find("nan") != std::string::npos)
     {
-        if (literal[0] == '-')
-            value = -std::numeric_limits<double>::quiet_NaN();
-        else
-            value = std::numeric_limits<double>::quiet_NaN();
+        value = std::numeric_limits<double>::quiet_NaN();
     }
     else if (literal.find("inf") != std::string::npos)
     {
+        value = std::numeric_limits<double>::infinity();
         if (literal[0] == '-')
-            value = -std::numeric_limits<double>::infinity();
-        else
-            value = std::numeric_limits<double>::infinity();
+        {
+            value = -value;
+        }
     }
-
     return value;
 }
