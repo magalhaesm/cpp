@@ -1,0 +1,5 @@
+*.o
+.cache
+compile_commands.json
+*.pdf
+references
