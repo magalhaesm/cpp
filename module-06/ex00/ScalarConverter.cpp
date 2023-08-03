@@ -6,148 +6,163 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:22:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 18:37:35 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:54:26 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cctype>
-#include <string>
+#include <climits>
+#include <cstdlib>
+#include <limits>
 #include <iostream>
 
+#include "Parser.hpp"
 #include "ScalarConverter.hpp"
-#include "ConversionStrategy.hpp"
+
+static bool isInRange(long, long, long);
+static double extractPseudoLiteral(const std::string&);
+
+const ScalarConverter::ConversionFunction ScalarConverter::conversions[functions] = {
+    { CHAR, ScalarConverter::charConversion },
+    { INT, ScalarConverter::intConversion },
+    { FLOAT, ScalarConverter::floatConversion },
+    { DOUBLE, ScalarConverter::doubleConversion },
+    { PSEUDO, ScalarConverter::pseudoLiteralConversion },
+    { UNKNOWN, ScalarConverter::invalidConversion },
+};
 
 void ScalarConverter::convert(const std::string& literal)
 {
-    ScalarType type = parseScalarType(literal);
-    AConversionStrategy* strategy = 0;
+    ScalarType type = Parser::parseScalarType(literal);
 
-    switch (type)
+    func instance = 0;
+
+    for (int idx = 0; idx < functions; ++idx)
     {
-    case CHAR:
-        strategy = new CharConversionStrategy();
-        break;
-    case INT:
-        strategy = new IntConversionStrategy();
-        break;
-    case FLOAT:
-        strategy = new FloatConversionStrategy();
-        break;
-    case DOUBLE:
-        strategy = new DoubleConversionStrategy();
-        break;
-    case PSEUDO:
-        strategy = new PseudoLiteralConversionStrategy();
-        break;
-    case UNKNOWN:
-        strategy = new InvalidConversionStrategy();
-    }
-
-    strategy->convert(literal);
-    delete strategy;
-}
-
-ScalarType ScalarConverter::parseScalarType(const std::string& literal)
-{
-    if (!literal.length())
-    {
-        return UNKNOWN;
-    }
-
-    ScalarType type = UNKNOWN;
-
-    type = parseChar(literal);
-    if (type != UNKNOWN)
-    {
-        return type;
-    }
-
-    type = parseNumber(literal);
-    if (type != UNKNOWN)
-    {
-        return type;
-    }
-
-    type = parsePseudoLiteral(literal);
-    if (type != UNKNOWN)
-    {
-        return type;
-    }
-
-    return UNKNOWN;
-}
-
-ScalarType ScalarConverter::parseChar(const std::string& literal)
-{
-    if (literal.length() == 1 && !std::isdigit(literal[0]))
-    {
-        return CHAR;
-    }
-    return UNKNOWN;
-}
-
-static bool isSign(char c)
-{
-    return c == '+' || c == '-';
-}
-
-ScalarType ScalarConverter::parseNumber(const std::string& literal)
-{
-    bool hasDot = false;
-    bool hasF = false;
-
-    size_t idx = 0;
-
-    if (isSign(literal[idx]))
-    {
-        ++idx;
-    }
-
-    size_t length = literal.length();
-    while (idx < length)
-    {
-        char currentChar = literal[idx];
-
-        if (currentChar == '.')
+        if (type == conversions[idx].type)
         {
-            if (hasDot)
-                return UNKNOWN;
-            hasDot = true;
+            instance = conversions[idx].function;
+            instance(literal);
+            break;
         }
-        else if (currentChar == 'f' || currentChar == 'F')
-        {
-            if (hasF)
-                return UNKNOWN;
-            hasF = true;
-        }
-        else if (!std::isdigit(currentChar))
-        {
-            return UNKNOWN;
-        }
-        idx++;
     }
-
-    if (hasF)
-    {
-        return FLOAT;
-    }
-    return hasDot ? DOUBLE : INT;
 }
 
-ScalarType ScalarConverter::parsePseudoLiteral(const std::string& literal)
+void ScalarConverter::charConversion(const std::string& literal)
 {
-    if (literal == "nan" || literal == "nanf")
+    ConversionPack pack = newPack();
+    char value = literal[0];
+
+    pack.char_value = value;
+    pack.int_value = static_cast<int>(value);
+    pack.float_value = static_cast<float>(value);
+    pack.double_value = static_cast<double>(value);
+
+    std::cout << pack << std::endl;
+}
+
+void ScalarConverter::intConversion(const std::string& literal)
+{
+    ConversionPack pack = newPack();
+    long value = std::atol(literal.c_str());
+
+    pack.char_value = static_cast<char>(value);
+    pack.is_char_valid = isInRange(value, CHAR_MIN, CHAR_MAX);
+
+    pack.int_value = static_cast<int>(value);
+    pack.is_int_valid = (pack.int_value == value);
+
+    pack.float_value = static_cast<float>(value);
+    pack.double_value = static_cast<double>(value);
+
+    std::cout << pack << std::endl;
+}
+
+void ScalarConverter::floatConversion(const std::string& literal)
+{
+    ConversionPack pack = newPack();
+    float value = std::atof(literal.c_str());
+
+    pack.char_value = static_cast<char>(value);
+    pack.is_char_valid = isInRange(value, CHAR_MIN, CHAR_MAX);
+
+    pack.int_value = static_cast<int>(value);
+    pack.is_int_valid = isInRange(static_cast<long>(value), INT_MIN, INT_MAX);
+
+    pack.float_value = static_cast<float>(value);
+    pack.double_value = static_cast<double>(value);
+
+    std::cout << pack << std::endl;
+}
+
+void ScalarConverter::doubleConversion(const std::string& literal)
+{
+    ConversionPack pack = newPack();
+    double value = std::strtod(literal.c_str(), 0);
+
+    pack.char_value = static_cast<char>(value);
+    pack.is_char_valid = isInRange(value, CHAR_MIN, CHAR_MAX);
+
+    pack.int_value = static_cast<int>(value);
+    pack.is_int_valid = isInRange(static_cast<long>(value), INT_MIN, INT_MAX);
+
+    pack.float_value = static_cast<float>(value);
+    pack.double_value = static_cast<double>(value);
+
+    std::cout << pack << std::endl;
+}
+
+void ScalarConverter::pseudoLiteralConversion(const std::string& literal)
+{
+    ConversionPack pack = newPack();
+    double value = extractPseudoLiteral(literal);
+
+    pack.char_value = static_cast<char>(value);
+    pack.is_char_valid = isInRange(value, CHAR_MIN, CHAR_MAX);
+
+    pack.int_value = static_cast<int>(value);
+    pack.is_int_valid = isInRange(static_cast<long>(value), INT_MIN, INT_MAX);
+
+    pack.float_value = static_cast<float>(value);
+    pack.double_value = static_cast<double>(value);
+
+    std::cout << pack << std::endl;
+}
+
+void ScalarConverter::invalidConversion(const std::string&)
+{
+    ConversionPack pack = newPack();
+
+    pack.is_char_valid = false;
+    pack.is_int_valid = false;
+    pack.is_float_valid = false;
+    pack.is_double_valid = false;
+
+    std::cout << pack << std::endl;
+}
+
+static bool isInRange(long value, long min, long max)
+{
+    return (value >= min && value <= max);
+}
+
+static double extractPseudoLiteral(const std::string& literal)
+{
+    double value = 0;
+
+    if (literal.find("nan") != std::string::npos)
     {
-        return PSEUDO;
+        if (literal[0] == '-')
+            value = -std::numeric_limits<double>::quiet_NaN();
+        else
+            value = std::numeric_limits<double>::quiet_NaN();
     }
-    if (literal == "inff" || literal == "-inff" || literal == "+inff")
+    else if (literal.find("inf") != std::string::npos)
     {
-        return PSEUDO;
-    }
-    else if (literal == "inf" || literal == "-inf" || literal == "+inf")
-    {
-        return PSEUDO;
+        if (literal[0] == '-')
+            value = -std::numeric_limits<double>::infinity();
+        else
+            value = std::numeric_limits<double>::infinity();
     }
 
-    return UNKNOWN;
+    return value;
 }

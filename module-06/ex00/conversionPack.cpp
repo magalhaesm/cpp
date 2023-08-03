@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AConversionStrategy.cpp                            :+:      :+:    :+:   */
+/*   conversionPack.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 12:25:23 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 18:34:22 by mdias-ma         ###   ########.fr       */
+/*   Created: 2023/08/02 21:51:24 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/08/02 21:52:22 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cctype>
-#include <climits>
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-
-#include "AConversionStrategy.hpp"
-
-void charConversionResult(std::ostream& out, const ConversionPack& rhs);
-void intConversionResult(std::ostream& out, const ConversionPack& rhs);
-void floatConversionResult(std::ostream& out, const ConversionPack& rhs);
-void doubleConversionResult(std::ostream& out, const ConversionPack& rhs);
-
-AConversionStrategy::AConversionStrategy()
-{
-}
-
-AConversionStrategy::AConversionStrategy(const AConversionStrategy& copy)
-{
-    *this = copy;
-}
-
-AConversionStrategy& AConversionStrategy::operator=(const AConversionStrategy&)
-{
-    return *this;
-}
-
-AConversionStrategy::~AConversionStrategy()
-{
-}
+#include "conversionPack.hpp"
 
 std::ostream& operator<<(std::ostream& out, const ConversionPack& rhs)
 {
@@ -54,6 +25,25 @@ std::ostream& operator<<(std::ostream& out, const ConversionPack& rhs)
     doubleConversionResult(out, rhs);
 
     return out;
+}
+
+ConversionPack newPack()
+{
+    ConversionPack pack;
+
+    pack.char_value = 0;
+    pack.is_char_valid = true;
+
+    pack.int_value = 0;
+    pack.is_int_valid = true;
+
+    pack.float_value = 0;
+    pack.is_float_valid = true;
+
+    pack.double_value = 0;
+    pack.is_double_valid = true;
+
+    return pack;
 }
 
 void charConversionResult(std::ostream& out, const ConversionPack& rhs)

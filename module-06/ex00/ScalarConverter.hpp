@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:21:34 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 17:43:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:50:56 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,33 @@
 
 #include <string>
 
-enum ScalarType
-{
-    CHAR,
-    INT,
-    FLOAT,
-    DOUBLE,
-    PSEUDO,
-    UNKNOWN
-};
+#include "Parser.hpp"
+#include "conversionPack.hpp"
 
 class ScalarConverter
 {
 public:
-    static void convert(const std::string& literal);
-    static ScalarType parseScalarType(const std::string& data);
-    static ScalarType parseChar(const std::string& literal);
-    static ScalarType parseNumber(const std::string& literal);
-    static ScalarType parsePseudoLiteral(const std::string& literal);
+    static void convert(const std::string&);
 
 private:
     ScalarConverter();
+
+    typedef void (*func)(const std::string&);
+    struct ConversionFunction
+    {
+        ScalarType type;
+        func function;
+    };
+
+    static void charConversion(const std::string&);
+    static void intConversion(const std::string&);
+    static void floatConversion(const std::string&);
+    static void doubleConversion(const std::string&);
+    static void pseudoLiteralConversion(const std::string&);
+    static void invalidConversion(const std::string&);
+
+    static const int functions = 6;
+    static const ConversionFunction conversions[functions];
 };
 
 #endif // !SCALARCONVERTER_HPP

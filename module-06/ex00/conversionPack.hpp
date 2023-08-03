@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AConversionStrategy.hpp                            :+:      :+:    :+:   */
+/*   conversionPack.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 12:25:23 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 18:48:38 by mdias-ma         ###   ########.fr       */
+/*   Created: 2023/08/02 21:51:30 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/08/02 21:52:28 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ACONVERSIONSTRATEGY_HPP
-#define ACONVERSIONSTRATEGY_HPP
+#ifndef CONVERVSIONPACK_HPP
+#define CONVERVSIONPACK_HPP
 
 #include <string>
+#include <iomanip>
+#include <ostream>
 
 struct ConversionPack
 {
@@ -28,18 +30,12 @@ struct ConversionPack
     double double_value;
 };
 
-class AConversionStrategy
-{
-public:
-    AConversionStrategy();
-    AConversionStrategy(const AConversionStrategy&);
-    virtual ~AConversionStrategy();
-
-    AConversionStrategy& operator=(const AConversionStrategy&);
-
-    virtual void convert(const std::string& literal) const = 0;
-};
+ConversionPack newPack();
+void charConversionResult(std::ostream&, const ConversionPack&);
+void intConversionResult(std::ostream&, const ConversionPack&);
+void floatConversionResult(std::ostream&, const ConversionPack&);
+void doubleConversionResult(std::ostream&, const ConversionPack&);
 
 std::ostream& operator<<(std::ostream&, const ConversionPack&);
 
-#endif // !ACONVERSIONSTRATEGY_HPP
+#endif // !CONVERVSIONPACK_HPP

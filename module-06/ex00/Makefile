@@ -5,8 +5,8 @@ CYAN  := \033[36m
 CHECK := \342\234\224
 LOG   := printf "[$(CYAN)$(CHECK)$(RESET)] %s\n"
 
-HEADERS  := ScalarConverter.hpp ConversionStrategy.hpp AConversionStrategy.hpp
-SRCS     := ScalarConverter.cpp ConversionStrategy.cpp AConversionStrategy.cpp main.cpp
+HEADERS  := ScalarConverter.hpp Parser.hpp conversionPack.hpp
+SRCS     := ScalarConverter.cpp Parser.cpp conversionPack.cpp main.cpp
 OBJS     := $(SRCS:.cpp=.o)
 CXX      := c++
 CXXFLAGS := -Wall -Wextra -Werror -std=c++98 -g
