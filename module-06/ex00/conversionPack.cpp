@@ -6,23 +6,23 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:51:24 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 23:53:28 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:05:34 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "conversionPack.hpp"
 
-std::ostream& operator<<(std::ostream& out, const ConversionPack& rhs)
+std::ostream& operator<<(std::ostream& out, const ConversionPack& pack)
 {
-    writeCharField(out, rhs);
+    writeCharField(out, pack);
     out << '\n';
-    writeIntField(out, rhs);
+    writeIntField(out, pack);
 
     out << std::fixed << std::setprecision(1) << '\n';
 
-    writeFloatField(out, rhs);
+    writeFloatField(out, pack);
     out << '\n';
-    writeDoubleField(out, rhs);
+    writeDoubleField(out, pack);
 
     return out;
 }
@@ -31,32 +31,32 @@ ConversionPack newPack()
 {
     ConversionPack pack;
 
-    pack.char_value = 0;
-    pack.is_char_valid = true;
+    pack.charValue = 0;
+    pack.hasValidChar = true;
 
-    pack.int_value = 0;
-    pack.is_int_valid = true;
+    pack.intValue = 0;
+    pack.hasValidInt = true;
 
-    pack.float_value = 0;
-    pack.is_float_valid = true;
+    pack.floatValue = 0;
+    pack.hasValidFloat = true;
 
-    pack.double_value = 0;
-    pack.is_double_valid = true;
+    pack.doubleValue = 0;
+    pack.hasValidDouble = true;
 
     return pack;
 }
 
-void writeCharField(std::ostream& out, const ConversionPack& rhs)
+void writeCharField(std::ostream& out, const ConversionPack& pack)
 {
     out << "char: ";
 
-    if (!rhs.is_char_valid)
+    if (!pack.hasValidChar)
     {
         out << "impossible";
     }
-    else if (std::isprint(rhs.char_value))
+    else if (std::isprint(pack.charValue))
     {
-        out << "'" << rhs.char_value << "'";
+        out << "'" << pack.charValue << "'";
     }
     else
     {
@@ -64,13 +64,13 @@ void writeCharField(std::ostream& out, const ConversionPack& rhs)
     }
 }
 
-void writeIntField(std::ostream& out, const ConversionPack& rhs)
+void writeIntField(std::ostream& out, const ConversionPack& pack)
 {
     out << "int: ";
 
-    if (rhs.is_int_valid)
+    if (pack.hasValidInt)
     {
-        out << rhs.int_value;
+        out << pack.intValue;
     }
     else
     {
@@ -78,13 +78,13 @@ void writeIntField(std::ostream& out, const ConversionPack& rhs)
     }
 }
 
-void writeFloatField(std::ostream& out, const ConversionPack& rhs)
+void writeFloatField(std::ostream& out, const ConversionPack& pack)
 {
     out << "float: ";
 
-    if (rhs.is_float_valid)
+    if (pack.hasValidFloat)
     {
-        out << rhs.float_value << 'f';
+        out << pack.floatValue << 'f';
     }
     else
     {
@@ -92,13 +92,13 @@ void writeFloatField(std::ostream& out, const ConversionPack& rhs)
     }
 }
 
-void writeDoubleField(std::ostream& out, const ConversionPack& rhs)
+void writeDoubleField(std::ostream& out, const ConversionPack& pack)
 {
     out << "double: ";
 
-    if (rhs.is_double_valid)
+    if (pack.hasValidDouble)
     {
-        out << rhs.double_value;
+        out << pack.doubleValue;
     }
     else
     {

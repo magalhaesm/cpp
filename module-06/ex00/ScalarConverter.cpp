@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:22:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 10:56:19 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:03:50 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void ScalarConverter::charConversion(const std::string& literal)
     ConversionPack pack = newPack();
     char value = literal[0];
 
-    pack.char_value = value;
-    pack.int_value = static_cast<int>(value);
-    pack.float_value = static_cast<float>(value);
-    pack.double_value = static_cast<double>(value);
+    pack.charValue = value;
+    pack.intValue = static_cast<int>(value);
+    pack.floatValue = static_cast<float>(value);
+    pack.doubleValue = static_cast<double>(value);
 
     std::cout << pack << std::endl;
 }
@@ -53,14 +53,14 @@ void ScalarConverter::intConversion(const std::string& literal)
     int value = std::atoi(literal.c_str());
     long longValue = std::atol(literal.c_str());
 
-    pack.char_value = static_cast<char>(value);
-    pack.is_char_valid = (pack.char_value == longValue);
+    pack.charValue = static_cast<char>(value);
+    pack.hasValidChar = (pack.charValue == longValue);
 
-    pack.int_value = value;
-    pack.is_int_valid = (pack.int_value == longValue);
+    pack.intValue = value;
+    pack.hasValidInt = (pack.intValue == longValue);
 
-    pack.float_value = static_cast<float>(value);
-    pack.double_value = static_cast<double>(value);
+    pack.floatValue = static_cast<float>(value);
+    pack.doubleValue = static_cast<double>(value);
 
     std::cout << pack << std::endl;
 }
@@ -71,14 +71,14 @@ void ScalarConverter::floatConversion(const std::string& literal)
     float value = std::atof(literal.c_str());
     long longValue = std::atol(literal.c_str());
 
-    pack.char_value = static_cast<char>(value);
-    pack.is_char_valid = (pack.char_value == longValue);
+    pack.charValue = static_cast<char>(value);
+    pack.hasValidChar = (pack.charValue == longValue);
 
-    pack.int_value = static_cast<int>(value);
-    pack.is_int_valid = (pack.int_value == longValue);
+    pack.intValue = static_cast<int>(value);
+    pack.hasValidInt = (pack.intValue == longValue);
 
-    pack.float_value = value;
-    pack.double_value = static_cast<double>(value);
+    pack.floatValue = value;
+    pack.doubleValue = static_cast<double>(value);
 
     std::cout << pack << std::endl;
 }
@@ -89,14 +89,14 @@ void ScalarConverter::doubleConversion(const std::string& literal)
     double value = std::strtod(literal.c_str(), 0);
     long longValue = static_cast<long>(value);
 
-    pack.char_value = static_cast<char>(value);
-    pack.is_char_valid = (pack.char_value == longValue);
+    pack.charValue = static_cast<char>(value);
+    pack.hasValidChar = (pack.charValue == longValue);
 
-    pack.int_value = static_cast<int>(value);
-    pack.is_int_valid = (pack.int_value == longValue);
+    pack.intValue = static_cast<int>(value);
+    pack.hasValidInt = (pack.intValue == longValue);
 
-    pack.float_value = static_cast<float>(value);
-    pack.double_value = value;
+    pack.floatValue = static_cast<float>(value);
+    pack.doubleValue = value;
 
     std::cout << pack << std::endl;
 }
@@ -107,14 +107,14 @@ void ScalarConverter::pseudoLiteralConversion(const std::string& literal)
     double value = extractPseudoLiteral(literal);
     long longValue = static_cast<long>(value);
 
-    pack.char_value = static_cast<char>(value);
-    pack.is_char_valid = (pack.char_value == longValue);
+    pack.charValue = static_cast<char>(value);
+    pack.hasValidChar = (pack.charValue == longValue);
 
-    pack.int_value = static_cast<int>(value);
-    pack.is_int_valid = (pack.int_value == longValue);
+    pack.intValue = static_cast<int>(value);
+    pack.hasValidInt = (pack.intValue == longValue);
 
-    pack.float_value = static_cast<float>(value);
-    pack.double_value = value;
+    pack.floatValue = static_cast<float>(value);
+    pack.doubleValue = value;
 
     std::cout << pack << std::endl;
 }
@@ -123,10 +123,10 @@ void ScalarConverter::invalidConversion(const std::string&)
 {
     ConversionPack pack = newPack();
 
-    pack.is_char_valid = false;
-    pack.is_int_valid = false;
-    pack.is_float_valid = false;
-    pack.is_double_valid = false;
+    pack.hasValidChar = false;
+    pack.hasValidInt = false;
+    pack.hasValidFloat = false;
+    pack.hasValidDouble = false;
 
     std::cout << pack << std::endl;
 }

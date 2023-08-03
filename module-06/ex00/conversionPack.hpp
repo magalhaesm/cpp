@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:51:30 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 23:53:29 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:03:49 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 
 struct ConversionPack
 {
-    bool is_char_valid;
-    bool is_int_valid;
-    bool is_float_valid;
-    bool is_double_valid;
+    bool hasValidChar;
+    bool hasValidInt;
+    bool hasValidFloat;
+    bool hasValidDouble;
 
-    char char_value;
-    int int_value;
-    float float_value;
-    double double_value;
+    char charValue;
+    int intValue;
+    float floatValue;
+    double doubleValue;
 };
 
 ConversionPack newPack();
