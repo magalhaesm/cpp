@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:22:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 11:03:50 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:31:31 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void ScalarConverter::intConversion(const std::string& literal)
 void ScalarConverter::floatConversion(const std::string& literal)
 {
     ConversionPack pack = newPack();
-    float value = std::atof(literal.c_str());
+    float value = std::strtof(literal.c_str(), 0);
     long longValue = std::atol(literal.c_str());
 
     pack.charValue = static_cast<char>(value);
