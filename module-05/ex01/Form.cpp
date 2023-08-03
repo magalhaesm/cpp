@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 19:03:53 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 09:37:11 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:20:29 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ Form::Form()
     : m_name("")
     , m_signed(false)
     , m_gradeToSign(lowestGrade)
-    , m_gradeToExecute(lowestGrade)
-{
-}
+    , m_gradeToExecute(lowestGrade){};
 
 Form::Form(std::string name, int gradeToSign, int gradeToExecute)
     : m_name(name)
@@ -40,13 +38,9 @@ Form::Form(const Form& copy)
     : m_name(copy.m_name)
     , m_signed(copy.m_signed)
     , m_gradeToSign(copy.m_gradeToSign)
-    , m_gradeToExecute(copy.m_gradeToExecute)
-{
-}
+    , m_gradeToExecute(copy.m_gradeToExecute){};
 
-Form::~Form()
-{
-}
+Form::~Form(){};
 
 Form& Form::operator=(const Form&)
 {
@@ -96,14 +90,10 @@ void Form::validateGrade(int grade)
 }
 
 Form::GradeTooHighException::GradeTooHighException()
-    : std::invalid_argument("Grade is too high")
-{
-}
+    : std::invalid_argument("Grade is too high"){};
 
 Form::GradeTooLowException::GradeTooLowException()
-    : std::invalid_argument("Grade is too low")
-{
-}
+    : std::invalid_argument("Grade is too low"){};
 
 std::ostream& operator<<(std::ostream& out, const Form& rhs)
 {

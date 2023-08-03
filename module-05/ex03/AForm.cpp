@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 19:03:53 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 15:42:03 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:24:13 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ AForm::AForm()
     : m_name("")
     , m_signed(false)
     , m_gradeToSign(lowestGrade)
-    , m_gradeToExecute(lowestGrade)
-{
-}
+    , m_gradeToExecute(lowestGrade){};
 
 AForm::AForm(const std::string& name, int gradeToSign, int gradeToExecute)
     : m_name(name)
@@ -45,9 +43,7 @@ AForm::AForm(const AForm& copy)
     *this = copy;
 }
 
-AForm::~AForm()
-{
-}
+AForm::~AForm(){};
 
 AForm& AForm::operator=(const AForm& rhs)
 {
@@ -122,19 +118,13 @@ void AForm::validateGrade(int grade)
 }
 
 AForm::GradeTooHighException::GradeTooHighException()
-    : std::invalid_argument("grade is too high")
-{
-}
+    : std::invalid_argument("grade is too high"){};
 
 AForm::GradeTooLowException::GradeTooLowException()
-    : std::invalid_argument("grade is too low")
-{
-}
+    : std::invalid_argument("grade is too low"){};
 
 AForm::FormNotAssignedException::FormNotAssignedException()
-    : std::invalid_argument("form not assigned")
-{
-}
+    : std::invalid_argument("form not assigned"){};
 
 std::ostream& operator<<(std::ostream& out, const AForm& rhs)
 {

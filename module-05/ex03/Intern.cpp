@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:11:44 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 20:52:33 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:18:19 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,14 @@ const Intern::FormCreatorEntry Intern::formCreators[knownForms] = {
     { "presidential pardon", Intern::createPresidentialPardonForm },
 };
 
-Intern::Intern()
-{
-}
+Intern::Intern(){};
 
 Intern::Intern(const Intern& copy)
 {
     *this = copy;
-}
+};
 
-Intern::~Intern()
-{
-}
+Intern::~Intern(){};
 
 Intern& Intern::operator=(const Intern&)
 {

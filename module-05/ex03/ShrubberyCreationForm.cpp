@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 11:23:59 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 16:08:48 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:19:05 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ const int EXEC = 137;
 static std::string generateTree(int height);
 
 ShrubberyCreationForm::ShrubberyCreationForm()
-    : AForm("ShrubberyCreationForm", SIGN, EXEC)
-{
-}
+    : AForm("ShrubberyCreationForm", SIGN, EXEC){};
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
     : AForm("ShrubberyCreationForm", SIGN, EXEC)
@@ -31,9 +29,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
     m_target = target;
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm()
-{
-}
+ShrubberyCreationForm::~ShrubberyCreationForm(){};
 
 void ShrubberyCreationForm::executeFormAction() const
 {
