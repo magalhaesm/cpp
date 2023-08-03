@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:22:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 23:46:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 01:00:15 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static bool isInRange(long, long, long);
 static double extractPseudoLiteral(const std::string&);
 
-const ScalarConverter::ConversionFunc ScalarConverter::conversions[functions] = {
+const ScalarConverter::ConversionEntry ScalarConverter::conversionTable[functions] = {
     { CHAR, ScalarConverter::charConversion },
     { INT, ScalarConverter::intConversion },
     { FLOAT, ScalarConverter::floatConversion },
@@ -36,9 +36,9 @@ void ScalarConverter::convert(const std::string& literal)
 
     for (int idx = 0; idx < functions; ++idx)
     {
-        if (type == conversions[idx].type)
+        if (type == conversionTable[idx].type)
         {
-            conversions[idx].function(literal);
+            conversionTable[idx].convert(literal);
             break;
         }
     }

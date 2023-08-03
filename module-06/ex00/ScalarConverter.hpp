@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:21:34 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/02 22:40:41 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:46:42 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ private:
     ScalarConverter();
 
     typedef void (*funcPtr)(const std::string&);
-    struct ConversionFunc
+    struct ConversionEntry
     {
         ScalarType type;
-        funcPtr function;
+        funcPtr convert;
     };
 
     static void charConversion(const std::string&);
@@ -41,7 +41,7 @@ private:
     static void invalidConversion(const std::string&);
 
     static const int functions = 6;
-    static const ConversionFunc conversions[functions];
+    static const ConversionEntry conversionTable[functions];
 };
 
 #endif // !SCALARCONVERTER_HPP
