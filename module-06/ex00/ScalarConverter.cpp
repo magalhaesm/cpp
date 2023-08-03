@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:22:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 01:00:15 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/03 09:31:14 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,7 @@ const ScalarConverter::ConversionEntry ScalarConverter::conversionTable[function
 void ScalarConverter::convert(const std::string& literal)
 {
     ScalarType type = Parser::parseScalarType(literal);
-
-    for (int idx = 0; idx < functions; ++idx)
-    {
-        if (type == conversionTable[idx].type)
-        {
-            conversionTable[idx].convert(literal);
-            break;
-        }
-    }
+    conversionTable[type].convert(literal);
 }
 
 void ScalarConverter::charConversion(const std::string& literal)
