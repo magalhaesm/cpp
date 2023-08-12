@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:12:12 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 11:01:27 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:40:41 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,9 @@ int main()
         Bureaucrat bob("Bob", 60);
         Form form("Travel Request", 80);
 
-        try
-        {
-            std::cout << bob << std::endl;
-            bob.signForm(form);
-            std::cout << '\n' << form << std::endl;
-        }
-        catch (const std::exception& error)
-        {
-            std::cout << error.what() << std::endl;
-        }
+        std::cout << bob << std::endl;
+        bob.signForm(form);
+        std::cout << '\n' << form << std::endl;
     }
     {
         print_title("Test: Form Not Successfully Signed");

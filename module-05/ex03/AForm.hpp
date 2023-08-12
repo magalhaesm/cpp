@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 19:03:23 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 20:32:05 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:14:25 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ private:
     void validateGrade(int grade);
 };
 
-std::ostream& operator<<(std::ostream&, const AForm&);
+std::ostream& operator<<(std::ostream& out, const AForm& form);
 
 #endif // !FORM_HPP

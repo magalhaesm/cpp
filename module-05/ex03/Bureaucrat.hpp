@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:01:17 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 13:09:04 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:24:34 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ public:
 
     const std::string& getName() const;
     int getGrade() const;
+    void setGrade(int grade);
 
     void incrementGrade();
     void decrementGrade();
 
-    void signForm(AForm&);
+    void signForm(AForm& form);
     void executeForm(AForm const& form);
 
     class GradeTooHighException : public std::invalid_argument
@@ -51,13 +52,11 @@ public:
 private:
     Bureaucrat();
 
-    int m_grade;
     const std::string m_name;
+    int m_grade;
 
     static const int highestGrade;
     static const int lowestGrade;
-
-    void setGrade(int grade);
 };
 
 std::ostream& operator<<(std::ostream&, const Bureaucrat&);

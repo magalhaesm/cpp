@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:02:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 18:19:51 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:17:09 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,26 @@
 const int Bureaucrat::highestGrade = 1;
 const int Bureaucrat::lowestGrade = 150;
 
-Bureaucrat::Bureaucrat(){};
+Bureaucrat::Bureaucrat()
+{
+}
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade)
-    : m_grade(lowestGrade)
-    , m_name(name)
+    : m_name(name)
+    , m_grade(lowestGrade)
 {
     setGrade(grade);
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& copy)
     : m_name(copy.m_name)
+    , m_grade(copy.m_grade)
 {
-    *this = copy;
 }
 
-Bureaucrat::~Bureaucrat(){};
+Bureaucrat::~Bureaucrat()
+{
+}
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs)
 {
@@ -79,10 +83,14 @@ void Bureaucrat::decrementGrade()
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException()
-    : std::invalid_argument("Grade is too high"){};
+    : std::invalid_argument("Grade is too high")
+{
+}
 
 Bureaucrat::GradeTooLowException::GradeTooLowException()
-    : std::invalid_argument("Grade is too low"){};
+    : std::invalid_argument("Grade is too low")
+{
+}
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& rhs)
 {

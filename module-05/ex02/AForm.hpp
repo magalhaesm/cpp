@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 19:03:23 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/31 16:24:56 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:52:59 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ public:
     AForm(const AForm&);
     virtual ~AForm();
 
-    AForm& operator=(const AForm&);
+    AForm& operator=(const AForm& rhs);
 
     const std::string& getName() const;
     bool getSigned() const;
@@ -72,6 +72,6 @@ private:
     void validateGrade(int grade);
 };
 
-std::ostream& operator<<(std::ostream&, const AForm&);
+std::ostream& operator<<(std::ostream& out, const AForm& form);
 
 #endif // !FORM_HPP

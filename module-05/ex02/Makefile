@@ -23,10 +23,10 @@ leaks: all
 
 $(NAME): $(OBJS)
 	@$(LOG) "Compiling $@"
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $@
+	@$(CXX) $(OBJS) -o $@
 
 %.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	@$(LOG) "Removing objects"
@@ -38,4 +38,4 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re
+.PHONY: all clean fclean re leaks run

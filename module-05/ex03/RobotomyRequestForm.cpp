@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 11:23:59 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 18:22:59 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:12:50 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ const int SIGN = 72;
 const int EXEC = 45;
 
 RobotomyRequestForm::RobotomyRequestForm()
-    : AForm("RobotomyRequestForm", SIGN, EXEC){};
+    : AForm("RobotomyRequestForm", SIGN, EXEC)
+{
+}
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
     : AForm("RobotomyRequestForm", SIGN, EXEC)
@@ -27,7 +29,9 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
     m_target = target;
 }
 
-RobotomyRequestForm::~RobotomyRequestForm(){};
+RobotomyRequestForm::~RobotomyRequestForm()
+{
+}
 
 void RobotomyRequestForm::executeFormAction() const
 {
@@ -36,7 +40,8 @@ void RobotomyRequestForm::executeFormAction() const
 
     if (success)
     {
-        std::cout << "Robotomy on " << m_target << " has been successful!" << std::endl;
+        std::cout << "Robotomy on " << m_target << " has been successful!"
+                  << std::endl;
     }
     else
     {

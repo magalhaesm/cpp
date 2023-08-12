@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 19:03:53 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 18:22:32 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:56:53 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ AForm::AForm()
     : m_name("")
     , m_signed(false)
     , m_gradeToSign(lowestGrade)
-    , m_gradeToExecute(lowestGrade){};
+    , m_gradeToExecute(lowestGrade)
+{
+}
 
 AForm::AForm(const std::string& name, int gradeToSign, int gradeToExecute)
     : m_name(name)
@@ -35,15 +37,17 @@ AForm::AForm(const std::string& name, int gradeToSign, int gradeToExecute)
 }
 
 AForm::AForm(const AForm& copy)
-    : m_name(copy.m_name)
+    : m_target(copy.m_target)
+    , m_name(copy.m_name)
     , m_signed(copy.m_signed)
     , m_gradeToSign(copy.m_gradeToSign)
     , m_gradeToExecute(copy.m_gradeToExecute)
 {
-    *this = copy;
 }
 
-AForm::~AForm(){};
+AForm::~AForm()
+{
+}
 
 AForm& AForm::operator=(const AForm& rhs)
 {
@@ -118,19 +122,25 @@ void AForm::validateGrade(int grade)
 }
 
 AForm::GradeTooHighException::GradeTooHighException()
-    : std::invalid_argument("grade is too high"){};
+    : std::invalid_argument("grade is too high")
+{
+}
 
 AForm::GradeTooLowException::GradeTooLowException()
-    : std::invalid_argument("grade is too low"){};
+    : std::invalid_argument("grade is too low")
+{
+}
 
 AForm::FormNotAssignedException::FormNotAssignedException()
-    : std::invalid_argument("form not assigned"){};
-
-std::ostream& operator<<(std::ostream& out, const AForm& rhs)
+    : std::invalid_argument("form not assigned")
 {
-    out << "Form name: " << rhs.getName() << '\n'
-        << "Signed: " << std::boolalpha << rhs.getSigned() << '\n'
-        << "Grade to sign: " << rhs.getGradeToSign() << '\n'
-        << "Grade to execute: " << rhs.getGradeToExecute();
+}
+
+std::ostream& operator<<(std::ostream& out, const AForm& form)
+{
+    out << "Form name: " << form.getName() << '\n'
+        << "Signed: " << std::boolalpha << form.getSigned() << '\n'
+        << "Grade to sign: " << form.getGradeToSign() << '\n'
+        << "Grade to execute: " << form.getGradeToExecute();
     return out;
 }
