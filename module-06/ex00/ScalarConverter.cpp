@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:22:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 16:31:31 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/06 00:19:47 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,24 @@
 static double extractPseudoLiteral(const std::string&);
 
 const ScalarConverter::ConversionEntry ScalarConverter::conversionTable[functions] = {
-    { CHAR, ScalarConverter::charConversion },
-    { INT, ScalarConverter::intConversion },
-    { FLOAT, ScalarConverter::floatConversion },
-    { DOUBLE, ScalarConverter::doubleConversion },
-    { PSEUDO, ScalarConverter::pseudoLiteralConversion },
-    { UNKNOWN, ScalarConverter::invalidConversion },
+    { CHAR, ScalarConverter::convertToChar },
+    { INT, ScalarConverter::convertToInt },
+    { FLOAT, ScalarConverter::convertToFloat },
+    { DOUBLE, ScalarConverter::convertToDouble },
+    { PSEUDO, ScalarConverter::convertToLiteral },
+    { UNKNOWN, ScalarConverter::handleInvalidConversion },
 };
 
-void ScalarConverter::convert(const std::string& literal)
+void ScalarConverter::convert(const std::string& input)
 {
-    ScalarType type = Parser::parseScalarType(literal);
-    conversionTable[type].convert(literal);
+    ScalarType type = Parser::parseScalarType(input);
+    conversionTable[type].convert(input);
 }
 
-void ScalarConverter::charConversion(const std::string& literal)
+void ScalarConverter::convertToChar(const std::string& input)
 {
     ConversionPack pack = newPack();
-    char value = literal[0];
+    char value = input[0];
 
     pack.charValue = value;
     pack.intValue = static_cast<int>(value);
@@ -47,11 +47,11 @@ void ScalarConverter::charConversion(const std::string& literal)
     std::cout << pack << std::endl;
 }
 
-void ScalarConverter::intConversion(const std::string& literal)
+void ScalarConverter::convertToInt(const std::string& input)
 {
     ConversionPack pack = newPack();
-    int value = std::atoi(literal.c_str());
-    long longValue = std::atol(literal.c_str());
+    int value = std::atoi(input.c_str());
+    long longValue = std::atol(input.c_str());
 
     pack.charValue = static_cast<char>(value);
     pack.hasValidChar = (pack.charValue == longValue);
@@ -65,11 +65,11 @@ void ScalarConverter::intConversion(const std::string& literal)
     std::cout << pack << std::endl;
 }
 
-void ScalarConverter::floatConversion(const std::string& literal)
+void ScalarConverter::convertToFloat(const std::string& input)
 {
     ConversionPack pack = newPack();
-    float value = std::strtof(literal.c_str(), 0);
-    long longValue = std::atol(literal.c_str());
+    float value = std::strtof(input.c_str(), 0);
+    long longValue = std::atol(input.c_str());
 
     pack.charValue = static_cast<char>(value);
     pack.hasValidChar = (pack.charValue == longValue);
@@ -83,10 +83,10 @@ void ScalarConverter::floatConversion(const std::string& literal)
     std::cout << pack << std::endl;
 }
 
-void ScalarConverter::doubleConversion(const std::string& literal)
+void ScalarConverter::convertToDouble(const std::string& input)
 {
     ConversionPack pack = newPack();
-    double value = std::strtod(literal.c_str(), 0);
+    double value = std::strtod(input.c_str(), 0);
     long longValue = static_cast<long>(value);
 
     pack.charValue = static_cast<char>(value);
@@ -101,10 +101,10 @@ void ScalarConverter::doubleConversion(const std::string& literal)
     std::cout << pack << std::endl;
 }
 
-void ScalarConverter::pseudoLiteralConversion(const std::string& literal)
+void ScalarConverter::convertToLiteral(const std::string& input)
 {
     ConversionPack pack = newPack();
-    double value = extractPseudoLiteral(literal);
+    double value = extractPseudoLiteral(input);
     long longValue = static_cast<long>(value);
 
     pack.charValue = static_cast<char>(value);
@@ -119,7 +119,7 @@ void ScalarConverter::pseudoLiteralConversion(const std::string& literal)
     std::cout << pack << std::endl;
 }
 
-void ScalarConverter::invalidConversion(const std::string&)
+void ScalarConverter::handleInvalidConversion(const std::string&)
 {
     ConversionPack pack = newPack();
 
@@ -131,18 +131,18 @@ void ScalarConverter::invalidConversion(const std::string&)
     std::cout << pack << std::endl;
 }
 
-static double extractPseudoLiteral(const std::string& literal)
+static double extractPseudoLiteral(const std::string& input)
 {
     double value = 0;
 
-    if (literal.find("nan") != std::string::npos)
+    if (input.find("nan") != std::string::npos)
     {
         value = std::numeric_limits<double>::quiet_NaN();
     }
-    else if (literal.find("inf") != std::string::npos)
+    else if (input.find("inf") != std::string::npos)
     {
         value = std::numeric_limits<double>::infinity();
-        if (literal[0] == '-')
+        if (input[0] == '-')
         {
             value = -value;
         }

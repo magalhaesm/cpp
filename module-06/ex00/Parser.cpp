@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 23:26:12 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 00:02:42 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:31:34 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,31 @@ const std::string Parser::supportedPseudos[totalPseudos] = {
     "inff", "-inff", "+inff", "nanf", "inf", "-inf", "+inf", "nan"
 };
 
-ScalarType Parser::parseScalarType(const std::string& literal)
+ScalarType Parser::parseScalarType(const std::string& input)
 {
-    if (literal.empty())
+    if (input.empty())
     {
         return UNKNOWN;
     }
 
-    ScalarType type = parseChar(literal);
+    ScalarType type = parseChar(input);
     if (type != UNKNOWN)
     {
         return type;
     }
 
-    type = parseNumber(literal);
+    type = parseNumber(input);
     if (type != UNKNOWN)
     {
         return type;
     }
 
-    return parsePseudoLiteral(literal);
+    return parsePseudoLiteral(input);
 }
 
-ScalarType Parser::parseChar(const std::string& literal)
+ScalarType Parser::parseChar(const std::string& input)
 {
-    if (literal.length() == 1 && !std::isdigit(literal[0]))
+    if (input.length() == 1 && !std::isdigit(input[0]))
     {
         return CHAR;
     }
@@ -56,23 +56,22 @@ static bool isSign(char c)
     return c == '+' || c == '-';
 }
 
-ScalarType Parser::parseNumber(const std::string& literal)
+ScalarType Parser::parseNumber(const std::string& input)
 {
     bool hasDot = false;
     bool hasF = false;
 
     size_t idx = 0;
 
-    if (isSign(literal[idx]))
+    if (isSign(input[idx]))
     {
         ++idx;
     }
 
-    size_t length = literal.length();
+    size_t length = input.length();
     while (idx < length)
     {
-        char currentChar = literal[idx];
-
+        char currentChar = input[idx];
         if (currentChar == '.')
         {
             if (hasDot)
@@ -99,11 +98,11 @@ ScalarType Parser::parseNumber(const std::string& literal)
     return hasF ? FLOAT : (hasDot ? DOUBLE : INT);
 }
 
-ScalarType Parser::parsePseudoLiteral(const std::string& literal)
+ScalarType Parser::parsePseudoLiteral(const std::string& input)
 {
     for (int idx = 0; idx < totalPseudos; ++idx)
     {
-        if (literal == supportedPseudos[idx])
+        if (input == supportedPseudos[idx])
         {
             return PSEUDO;
         }

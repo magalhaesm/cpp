@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:21:34 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 00:46:42 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:19:09 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,27 @@
 class ScalarConverter
 {
 public:
-    static void convert(const std::string&);
+    static void convert(const std::string& input);
 
 private:
     ScalarConverter();
 
-    typedef void (*funcPtr)(const std::string&);
+    typedef void (*funcPtr)(const std::string& input);
     struct ConversionEntry
     {
         ScalarType type;
         funcPtr convert;
     };
 
-    static void charConversion(const std::string&);
-    static void intConversion(const std::string&);
-    static void floatConversion(const std::string&);
-    static void doubleConversion(const std::string&);
-    static void pseudoLiteralConversion(const std::string&);
-    static void invalidConversion(const std::string&);
+    static void convertToChar(const std::string& input);
+    static void convertToInt(const std::string& input);
+    static void convertToFloat(const std::string& input);
+    static void convertToDouble(const std::string& input);
+    static void convertToLiteral(const std::string& input);
+    static void handleInvalidConversion(const std::string& input);
 
     static const int functions = 6;
     static const ConversionEntry conversionTable[functions];
 };
 
-#endif // !SCALARCONVERTER_HPP
+#endif // !SCALARCONVERTER_HP
