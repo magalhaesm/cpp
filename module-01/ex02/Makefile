@@ -14,16 +14,24 @@ all: $(NAME)
 run: all
 	@./$(NAME)
 
-$(NAME): $(SRCS)
-	@$(CXX) $(CXXFLAGS) $< -o $@
+leaks: all
+	@valgrind --track-origins=yes --leak-check=full ./$(NAME)
+
+$(NAME): $(OBJS)
 	@$(LOG) "Compiling $@"
+	@$(CXX) $(OBJS) -o $@
+
+%.o: %.cpp $(HEADERS)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
+	@$(LOG) "Removing objects"
+	@$(RM) -r $(OBJS)
+
+fclean: clean
 	@$(LOG) "Removing $(NAME)"
 	@$(RM) -r $(NAME)
 
-fclean: clean
-
 re: clean all
 
-.PHONY: all, clean, fclean, re
+.PHONY: all clean fclean re leaks run

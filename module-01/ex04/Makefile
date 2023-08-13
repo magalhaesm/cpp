@@ -10,17 +10,19 @@ SRCS     := main.cpp replace.cpp
 OBJS     := $(SRCS:.cpp=.o)
 TESTS    := $(filter-out main.o, $(OBJS))
 CXX      := c++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++98 -g
+CXXFLAGS := -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
-tests: all
-	@$(CXX) $(CXXFLAGS) tests.cpp $(TESTS) -o tests
-	@./tests
+run: all
+	@./$(NAME)
+
+leaks: all
+	@valgrind --track-origins=yes --leak-check=full ./$(NAME)
 
 $(NAME): $(OBJS)
-	@$(CXX) $(CXXFLAGS) $(OBJS) -o $@
 	@$(LOG) "Compiling $@"
+	@$(CXX) $(OBJS) -o $@
 
 %.o: %.cpp $(HEADERS)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
@@ -35,4 +37,4 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, tests
+.PHONY: all clean fclean re leaks run

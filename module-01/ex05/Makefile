@@ -20,8 +20,8 @@ leaks: all
 	@valgrind --track-origins=yes --leak-check=full ./$(NAME)
 
 $(NAME): $(OBJS)
-	@$(CXX) $(CXXFLAGS) $(OBJS) -o $@
 	@$(LOG) "Compiling $@"
+	@$(CXX) $(OBJS) -o $@
 
 %.o: %.cpp $(HEADERS)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
@@ -36,4 +36,4 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, run, leaks
+.PHONY: all clean fclean re leaks run
