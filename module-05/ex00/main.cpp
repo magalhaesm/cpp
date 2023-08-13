@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:12:12 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/30 19:01:14 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:17:27 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@ void print_failure();
 int main()
 {
     {
-        print_title("Test Constructor/Assignment");
+        print_title("Test Constructor/Copy/Assignment");
 
         Bureaucrat a("Bob", 42);
         Bureaucrat b = a;
         Bureaucrat c(a);
+
+        b.setGrade(21);
+        c = b;
 
         std::cout << "A: " << a << std::endl;
         std::cout << "B: " << b << std::endl;

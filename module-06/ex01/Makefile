@@ -36,4 +36,4 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, leaks, run
+.PHONY: all clean fclean re leaks run

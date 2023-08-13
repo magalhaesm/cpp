@@ -9,7 +9,7 @@ HEADERS  := Base.hpp
 SRCS     := Base.cpp main.cpp
 OBJS     := $(SRCS:.cpp=.o)
 CXX      := c++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++98 -g
+CXXFLAGS := -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
@@ -36,4 +36,4 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, leaks, run
+.PHONY: all clean fclean re leaks run

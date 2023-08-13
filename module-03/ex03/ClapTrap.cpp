@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:18:33 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/25 18:29:46 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:47:27 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 
 ClapTrap::ClapTrap()
 {
+    std::cout << "[ ClapTrap ] : Default constructor called" << std::endl;
 }
 
 ClapTrap::~ClapTrap()

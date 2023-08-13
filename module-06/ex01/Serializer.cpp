@@ -6,13 +6,15 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 12:37:12 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/03 15:45:20 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:34:08 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Serializer.hpp"
 
-Serializer::Serializer(){};
+Serializer::Serializer()
+{
+}
 
 uintptr_t Serializer::serialize(Data* ptr)
 {

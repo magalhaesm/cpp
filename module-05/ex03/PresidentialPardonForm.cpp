@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:16:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/12 18:13:05 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/13 17:35:54 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
     m_target = target;
 }
 
-PresidentialPardonForm::~PresidentialPardonForm(){};
+PresidentialPardonForm::~PresidentialPardonForm()
+{
+}
 
 void PresidentialPardonForm::executeFormAction() const
 {
