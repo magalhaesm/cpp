@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:14:29 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/07/20 14:59:52 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:00:43 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,8 @@ Point::Point(const Point& src)
 {
 }
 
-Point& Point::operator=(const Point& rhs)
+Point& Point::operator=(const Point&)
 {
-    if (this != &rhs)
-    {
-        const_cast<Fixed&>(x) = rhs.getX();
-        const_cast<Fixed&>(y) = rhs.getY();
-    }
     return *this;
 }
 
