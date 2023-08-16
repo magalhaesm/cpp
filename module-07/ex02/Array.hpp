@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Array.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/04 09:19:09 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/08/16 20:17:03 by mdias-ma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
@@ -28,10 +40,6 @@ Array<T>::Array(unsigned int size)
     : m_size(size)
     , m_ptr(new T[m_size])
 {
-    for (size_t i = 0; i < m_size; ++i)
-    {
-        m_ptr[i] = 0;
-    }
 }
 
 template <typename T>
@@ -75,7 +83,7 @@ T& Array<T>::operator[](size_t subscript)
 {
     if (subscript >= m_size)
     {
-        throw std::out_of_range("Index out of bounds");
+        throw std::out_of_range("index out of bounds");
     }
     return m_ptr[subscript];
 }
@@ -85,7 +93,7 @@ T Array<T>::operator[](size_t subscript) const
 {
     if (subscript >= m_size)
     {
-        throw std::out_of_range("Index out of bounds");
+        throw std::out_of_range("index out of bounds");
     }
     return m_ptr[subscript];
 }
