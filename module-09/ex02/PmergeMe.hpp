@@ -6,26 +6,26 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 12:41:01 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/22 14:13:16 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:56:20 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
+#include <list>
 #include <vector>
 #include <algorithm>
+
+#include "utils.hpp"
 
 namespace PmergeMe
 {
     template <typename Iterator>
     void sort(Iterator first, Iterator last);
 
-    template <typename Iterator>
-    void mergeInsertionSort(Iterator first, Iterator last, size_t size = 2);
-
-    template <typename Iterator>
-    void maxEndSwap(const Iterator it, size_t group_size);
+    template <typename Slice>
+    void sort_impl(Slice first, Slice last);
 
     template <typename ForwardIterator>
     bool isSorted(ForwardIterator first, ForwardIterator last);
@@ -34,39 +34,103 @@ namespace PmergeMe
 template <typename Iterator>
 void PmergeMe::sort(Iterator first, Iterator last)
 {
-    mergeInsertionSort(first, last, 2);
+    sort_impl(make_slice(first, 1), make_slice(last, 1));
 }
 
-template <typename Iterator>
-inline void PmergeMe::mergeInsertionSort(Iterator first, Iterator last, size_t size)
+template <typename T>
+struct Inserter
 {
-    size_t elements = std::distance(first, last);
-    if (size > elements) // base case
+    std::vector<T>& m_chain;
+
+    Inserter(std::vector<T>& chain)
+        : m_chain(chain)
+    {
+    }
+
+    void operator()(const T& element, size_t max_insertion_idx)
+    {
+        typedef typename std::vector<T>::iterator Iterator;
+
+        Iterator end = m_chain.begin() + std::min(max_insertion_idx, m_chain.size());
+        Iterator idx = std::upper_bound(m_chain.begin(), end, element);
+        m_chain.insert(idx, element);
+    }
+};
+
+template <typename Container, typename Function>
+void each_insertion_for(const Container& pend, Function inserter)
+{
+    inserter(pend[0], 0);
+
+    size_t groupIdx = 1;
+    size_t prevGroupSize = 0;
+
+    for (size_t power = 1; groupIdx < pend.size(); ++power)
+    {
+        size_t groupSize = (1 << power) - prevGroupSize;
+        size_t groupLast = std::min(groupIdx + groupSize - 1, pend.size() - 1);
+        size_t maxInsertionIdx = (1 << (power + 1)) - 1;
+
+        for (size_t idx = groupLast; idx >= groupIdx; --idx)
+        {
+            inserter(pend[idx], maxInsertionIdx);
+        }
+
+        groupIdx += groupSize;
+        prevGroupSize = groupSize;
+    }
+}
+
+template <typename Slice>
+void PmergeMe::sort_impl(Slice first, Slice last)
+{
+    size_t size = std::distance(first, last);
+    if (size < 2)
     {
         return;
     }
 
-    Iterator ite = last - (elements % size);
-    for (Iterator it = first; it < ite; it += size)
+    bool odd = (size % 2 != 0);
+    Slice end = odd ? utils::prev(last) : last;
+
+    for (Slice it = first; it != end; it += 2)
     {
-        maxEndSwap(it, size);
+        if (*(it + 1) < *it)
+        {
+            iter_swap(it + 1, it);
+        }
     }
-    mergeInsertionSort(first, last, size * 2);
-}
 
-template <typename Iterator>
-inline void PmergeMe::maxEndSwap(const Iterator it, size_t size)
-{
-    Iterator left_end = it + (size / 2);
-    Iterator right_end = it + size;
+    sort_impl(make_slice(first, 2), make_slice(end, 2));
 
-    int left = *(left_end - 1);
-    int right = *(right_end - 1);
+    std::vector<Slice> chain;
+    std::vector<Slice> pend;
 
-    if (left > right)
+    for (Slice it = first; it != end; it += 2)
     {
-        std::swap_ranges(it, left_end, left_end);
+        pend.push_back(it);
+        chain.push_back(it + 1);
     }
+
+    if (odd)
+    {
+        pend.push_back(utils::prev(last));
+    }
+
+    Inserter<Slice> inserter(chain);
+    each_insertion_for(pend, inserter);
+
+    std::vector<typename Slice::value_type> sorted;
+
+    for (size_t i = 0; i < chain.size(); ++i)
+    {
+        Slice slice = chain[i];
+        for (size_t j = 0; j < slice.size(); ++j)
+        {
+            sorted.push_back(*(slice.base() + j));
+        }
+    }
+    std::copy(sorted.begin(), sorted.end(), first.base());
 }
 
 template <typename ForwardIterator>
