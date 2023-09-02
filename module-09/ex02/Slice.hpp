@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 09:47:40 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/30 17:52:10 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/09/02 15:19:37 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +17,33 @@
 #include <iostream>
 #include <algorithm>
 
+#include "utils.hpp"
+
 template <typename Iterator>
 class Slice
 {
+public:
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
+    typedef typename std::iterator_traits<Iterator>::difference_type difference_type;
+    typedef typename std::iterator_traits<Iterator>::pointer pointer;
+    typedef typename std::iterator_traits<Iterator>::reference reference;
+    typedef typename std::iterator_traits<Iterator>::iterator_category iterator_category;
+
 private:
     Iterator m_begin;
     size_t m_size;
 
 public:
-    typedef Iterator iterator_type;
-    typedef typename std::iterator_traits<Iterator>::value_type value_type;
-    typedef typename std::iterator_traits<Iterator>::reference reference;
+    Slice()
+    {
+    }
 
-    Slice(Iterator begin, size_t size)
-        : m_begin(begin)
+    ~Slice()
+    {
+    }
+
+    Slice(Iterator it, size_t size)
+        : m_begin(it)
         , m_size(size)
     {
     }
@@ -39,45 +53,74 @@ public:
         return m_begin;
     }
 
-    std::size_t size() const
+    size_t size() const
     {
         return m_size;
     }
 
     reference operator*() const
     {
-        return m_begin[m_size - 1];
-    }
-
-    // NOTE: OK
-    bool operator<(const Slice<Iterator>& rhs) const
-    {
-        return *(this->base() + m_size - 1) < *(rhs.base() + rhs.m_size - 1);
-    }
-
-    Slice<Iterator> operator+(size_t count) const
-    {
-        return Slice<Iterator>(m_begin + (m_size * count), m_size);
-    }
-
-    // NOTE: OK
-    reference operator[](size_t pos) const
-    {
-        return m_begin[pos * m_size + m_size - 1];
+        return *utils::next(m_begin, m_size - 1);
     }
 
     Slice& operator+=(size_t increment)
     {
-        m_begin += m_size * increment;
+        m_begin += increment * m_size;
         return *this;
+    }
+
+    Slice& operator-=(size_t increment)
+    {
+        m_begin -= increment * m_size;
+        return *this;
+    }
+
+    bool operator!=(const Slice& rhs) const
+    {
+        return this->base() != rhs.base();
+    }
+
+    Slice operator+(size_t size) const
+    {
+        Slice aux = *this;
+        return aux += size;
+    }
+
+    Slice operator-(size_t size) const
+    {
+        Slice aux = *this;
+        return aux -= size;
+    }
+
+    size_t operator-(const Slice& rhs) const
+    {
+        return std::distance(this->base(), rhs.base()) / this->size();
     }
 };
 
-template <typename Iterator>
-void iter_swap(Slice<Iterator> rhs, Slice<Iterator> lhs)
+template <typename Slice>
+bool operator<(const Slice& lhs, const Slice& rhs)
 {
-    Iterator middle = rhs.base() + rhs.size();
-    std::swap_ranges(rhs.base(), middle, lhs.base());
+    return *lhs < *rhs;
+}
+
+template <typename Iterator>
+Slice<Iterator> make_slice(Iterator it, size_t size)
+{
+    return Slice<Iterator>(it, size);
+}
+
+template <typename Iterator>
+Slice<Iterator> make_slice(Slice<Iterator> it, size_t size)
+{
+    size *= it.size();
+    return Slice<Iterator>(it.base(), size);
+}
+
+template <typename Slice>
+void iter_swap(Slice lhs, Slice rhs)
+{
+    std::swap_ranges(lhs.base(), utils::next(lhs.base(), lhs.size()), rhs.base());
 }
 
 template <typename Iterator>
