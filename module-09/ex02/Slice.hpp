@@ -30,11 +30,31 @@ public:
     typedef typename std::iterator_traits<Iterator>::iterator_category iterator_category;
 
 private:
-    Iterator m_begin;
+    Iterator m_current;
     size_t m_size;
 
-public:
     Slice()
+    {
+    }
+
+public:
+    template <typename T>
+    Slice(Slice<T>& it)
+        : m_current(it.base())
+        , m_size(it.size())
+    {
+    }
+
+    template <typename T>
+    Slice(Slice<T>& it, size_t size)
+        : m_current(it.base())
+        , m_size(size * it.size())
+    {
+    }
+
+    Slice(Iterator it, size_t size = 1)
+        : m_current(it)
+        , m_size(size)
     {
     }
 
@@ -42,15 +62,9 @@ public:
     {
     }
 
-    Slice(Iterator it, size_t size)
-        : m_begin(it)
-        , m_size(size)
-    {
-    }
-
     Iterator base() const
     {
-        return m_begin;
+        return m_current;
     }
 
     size_t size() const
@@ -58,20 +72,53 @@ public:
         return m_size;
     }
 
-    reference operator*() const
+    Slice& operator=(const Slice& rhs)
     {
-        return *utils::next(m_begin, m_size - 1);
-    }
-
-    Slice& operator+=(size_t increment)
-    {
-        m_begin += increment * m_size;
+        m_current = rhs.base();
+        m_size = rhs.size();
         return *this;
     }
 
-    Slice& operator-=(size_t increment)
+    reference operator*() const
     {
-        m_begin -= increment * m_size;
+        return *utils::next(m_current, m_size - 1);
+    }
+
+    Slice& operator++()
+    {
+        std::advance(m_current, m_size);
+        return *this;
+    }
+
+    Slice operator++(int)
+    {
+        Slice aux = *this;
+        std::advance(m_current, m_size);
+        return aux;
+    }
+
+    Slice& operator--()
+    {
+        std::advance(m_current, -m_size);
+        return *this;
+    }
+
+    Slice operator--(int)
+    {
+        Slice aux = *this;
+        std::advance(m_current, -m_size);
+        return aux;
+    }
+
+    Slice& operator+=(size_t inc)
+    {
+        std::advance(m_current, inc * m_size);
+        return *this;
+    }
+
+    Slice& operator-=(size_t inc)
+    {
+        std::advance(m_current, -inc * m_size);
         return *this;
     }
 
@@ -102,19 +149,6 @@ template <typename Slice>
 bool operator<(const Slice& lhs, const Slice& rhs)
 {
     return *lhs < *rhs;
-}
-
-template <typename Iterator>
-Slice<Iterator> make_slice(Iterator it, size_t size)
-{
-    return Slice<Iterator>(it, size);
-}
-
-template <typename Iterator>
-Slice<Iterator> make_slice(Slice<Iterator> it, size_t size)
-{
-    size *= it.size();
-    return Slice<Iterator>(it.base(), size);
 }
 
 template <typename Slice>
