@@ -1,79 +1,112 @@
-#include <algorithm>
+#include <iomanip>
+#include <exception>
 #include <iostream>
-#include <iterator>
-
+#include <algorithm>
+#include <sstream>
 #include <vector>
 #include <list>
+#include <ctime>
 
-#include "Slice.hpp"
 #include "PmergeMe.hpp"
 
 template <typename Iterator>
 void print(const std::string& lable, Iterator begin, Iterator end);
 
-template <typename T>
-void print(const std::string& lable, const std::vector<T>& vec);
+int strToInt(const std::string& str);
+void testMergeInsertionSort(const std::vector<int>& input);
+void parseArguments(const std::vector<std::string>& args, std::vector<int>& input);
 
-template <typename Container, typename Function>
-void each_insertion_for(const Container& pend, Function inserter);
-
-int main()
+int main(int argc, char** argv)
 {
-    std::vector<int> xs;
+    if (argc < 2)
+    {
+        std::cout << "Usage: " << argv[0] << " {1..10}" << std::endl;
+        return EXIT_FAILURE;
+    }
 
-    xs.push_back(8);
-    xs.push_back(7);
-    xs.push_back(100);
-    xs.push_back(27);
-    xs.push_back(46);
-    xs.push_back(11);
-    xs.push_back(53);
-    xs.push_back(2);
-    xs.push_back(13);
-    xs.push_back(0);
-    xs.push_back(15);
-    xs.push_back(5);
-    xs.push_back(17);
-    xs.push_back(18);
-    xs.push_back(14);
-    xs.push_back(28);
-    xs.push_back(20);
-    xs.push_back(19);
-    xs.push_back(21);
+    const std::vector<std::string> args(argv + 1, argv + argc);
+    std::vector<int> input;
 
-    // xs.push_back(21);
+    try
+    {
+        parseArguments(args, input);
+        testMergeInsertionSort(input);
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
-    // xs.push_back(3);
-    // xs.push_back(26);
-    // xs.push_back(10);
-    // xs.push_back(36);
-    // xs.push_back(6);
-    // xs.push_back(56);
-    // xs.push_back(37);
-    // xs.push_back(31);
-    // xs.push_back(30);
-    // xs.push_back(23);
-    // xs.push_back(43);
-    // xs.push_back(42);
-    // xs.push_back(68);
-    // xs.push_back(73);
-
-    print("==>", xs);
-    PmergeMe::sort(xs.begin(), xs.end());
-    print("==>", xs);
+    return EXIT_SUCCESS;
 }
 
-#include <iostream>
-#include <vector>
-
-template <typename T>
-void print(const std::string& lable, const std::vector<T>& vec)
+double get_msec(clock_t& start, clock_t& end)
 {
-    std::cout << lable << " [";
+    return static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000;
+}
 
-    std::ostream_iterator<T> output(std::cout, ", ");
-    std::copy(vec.begin(), vec.end() - 1, output);
-    std::cout << *(vec.end() - 1) << "]\n";
+void testMergeInsertionSort(const std::vector<int>& input)
+{
+    print("Before: ", input.begin(), input.end());
+
+    clock_t start, end;
+    double vector_time, list_time;
+
+    {
+        start = clock();
+
+        std::vector<int> xs(input.begin(), input.end());
+        PmergeMe::sort(xs.begin(), xs.end());
+
+        end = clock();
+
+        if (!utils::is_sorted(xs.begin(), xs.end()))
+        {
+            throw std::runtime_error("failed to sort");
+        }
+
+        vector_time = get_msec(start, end);
+        print("After:  ", xs.begin(), xs.end());
+    }
+
+    {
+        start = clock();
+
+        std::list<int> xs(input.begin(), input.end());
+        PmergeMe::sort(xs.begin(), xs.end());
+
+        end = clock();
+
+        if (!utils::is_sorted(xs.begin(), xs.end()))
+        {
+            throw std::runtime_error("failed to sort");
+        }
+
+        list_time = get_msec(start, end);
+    }
+
+    std::cout << std::fixed << std::setprecision(5);
+    std::cout << "Time to process a range of " << input.size()
+              << " elements with std::vector : " << vector_time << " ms\n";
+    std::cout << "Time to process a range of " << input.size()
+              << " elements with std::list : " << list_time << " ms\n";
+}
+
+void parseArguments(const std::vector<std::string>& args, std::vector<int>& input)
+{
+    std::transform(args.begin(), args.end(), std::back_inserter(input), strToInt);
+}
+
+int strToInt(const std::string& str)
+{
+    std::stringstream ss(str);
+    int val;
+    if (!(ss >> val))
+    {
+        throw std::invalid_argument("conversion failed");
+    }
+    return val;
 }
 
 template <typename Iterator>

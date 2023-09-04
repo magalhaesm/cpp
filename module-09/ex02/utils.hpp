@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:23:42 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/26 09:48:13 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:02:52 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,34 @@ namespace utils
     Iterator next(Iterator it, size_t n = 1);
 
     /**
-     * @brief Advances the iterator `it` by `n` positions.
+     * Check if a range of elements is sorted in ascending order.
      *
-     * @param it The iterator to advance.
-     * @param n  The number of positions to advance the iterator.
+     * This function checks whether the range defined by the iterators 'first' and 'last'
+     * is sorted in ascending order based on element comparisons.
+     *
+     * @param first The iterator to the first element in the range.
+     * @param last The iterator to the last element in the range.
+     * @return True if the range is sorted in ascending order, otherwise False.
      */
-    template <typename Iterator, typename Distance>
-    void advance(Iterator& it, Distance n = 1);
+    template <typename ForwardIterator>
+    bool is_sorted(ForwardIterator first, ForwardIterator last)
+    {
+        if (first == last)
+        {
+            return true;
+        }
+
+        ForwardIterator next = first;
+        while (++next != last)
+        {
+            if (*next < *first)
+            {
+                return false;
+            }
+            ++first;
+        }
+        return true;
+    }
 
     namespace impl
     {
@@ -59,11 +80,7 @@ namespace utils
         inline BidirectionalIterator
         prev(BidirectionalIterator it, size_t n, std::bidirectional_iterator_tag)
         {
-            while (n > 0)
-            {
-                --it;
-                --n;
-            }
+            std::advance(it, -n);
             return it;
         }
 
@@ -78,47 +95,11 @@ namespace utils
         inline BidirectionalIterator
         next(BidirectionalIterator it, size_t n, std::bidirectional_iterator_tag)
         {
-            while (n--)
-            {
-                ++it;
-            }
+            std::advance(it, n);
             return it;
         }
 
-        template <typename RandomAccessIterator, typename Distance>
-        inline void advance(RandomAccessIterator& it, Distance n, std::random_access_iterator_tag)
-        {
-            it += n;
-        }
-
-        template <typename BidirectionalIterator, typename Distance>
-        inline void advance(BidirectionalIterator& it, Distance n, std::bidirectional_iterator_tag)
-        {
-            if (n >= 0)
-            {
-                while (n > 0)
-                {
-                    ++it;
-                    --n;
-                }
-            }
-            else
-            {
-                while (n < 0)
-                {
-                    --it;
-                    ++n;
-                }
-            }
-        }
     }
-}
-
-template <typename Iterator, typename Distance>
-void utils::advance(Iterator& it, Distance n)
-{
-    typename std::iterator_traits<Iterator>::iterator_category category;
-    impl::advance(it, n, category);
 }
 
 template <typename Iterator>
