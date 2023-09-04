@@ -62,7 +62,7 @@ public:
     {
     }
 
-    Iterator base() const
+    const Iterator& base() const
     {
         return m_current;
     }
@@ -151,8 +151,20 @@ bool operator<(const Slice& lhs, const Slice& rhs)
     return *lhs < *rhs;
 }
 
+template <typename Slice, typename Compare>
+void swap_adjacent(Slice first, Slice last, Compare cmp)
+{
+    for (Slice it = first; it != last; it += 2)
+    {
+        if (cmp(it + 1, it))
+        {
+            iter_swap(it + 1, it);
+        }
+    }
+}
+
 template <typename Slice>
-void iter_swap(Slice lhs, Slice rhs)
+inline void iter_swap(Slice lhs, Slice rhs)
 {
     std::swap_ranges(lhs.base(), utils::next(lhs.base(), lhs.size()), rhs.base());
 }
