@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 17:16:09 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/08/16 20:16:48 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:05:31 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@
 
 template <typename T>
 void iter(T* array, size_t length, void (*function)(T&))
+{
+    if (!array)
+    {
+        return;
+    }
+
+    for (size_t idx = 0; idx < length; ++idx)
+    {
+        function(array[idx]);
+    }
+}
+
+template <typename T>
+void iter(const T* array, const size_t length, void (*function)(const T&))
 {
     if (!array)
     {
